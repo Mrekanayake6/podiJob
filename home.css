@@ -1,0 +1,770 @@
+    :root {
+
+
+        --navy-950: #070d14;
+        --navy-900: #0b1420;
+        --navy-800: #101d2c;
+
+        --ivory: #f6f2e9;
+        --soft: #cdd3d9;
+        --muted: #93a1ac;
+
+        --amber: #e3a13c;
+        --amber-light: #f3c874;
+
+        --brick: #bf5535;
+        --brick-light: #d97a56;
+
+
+        --glass:
+            rgba(255, 255, 255, .06);
+
+        --border:
+            rgba(255, 255, 255, .14);
+
+
+        --title:
+            "Poppins",
+            "Noto Sans Sinhala",
+            sans-serif;
+
+
+        --body:
+            "Inter",
+            "Noto Sans Sinhala",
+            sans-serif;
+
+
+    }
+
+
+
+    * {
+
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+
+    }
+
+
+
+    body {
+
+
+        min-height: 100vh;
+
+        font-family: var(--body);
+
+        color: var(--ivory);
+
+
+        background:
+
+            linear-gradient(120deg,
+                #070d14,
+                #101d2c);
+
+
+    }
+
+
+
+    /* BACKGROUND */
+
+    body::before {
+
+
+        content: "";
+
+        position: fixed;
+
+        inset: 0;
+
+
+        background:
+
+            radial-gradient(circle at 20% 10%,
+                rgba(227, 161, 60, .18),
+                transparent 40%),
+
+
+            radial-gradient(circle at 80% 80%,
+                rgba(191, 85, 53, .15),
+                transparent 40%);
+
+
+        z-index: -1;
+
+
+    }
+
+
+
+    /* ===================
+ NAVBAR
+=================== */
+
+
+    .navbar {
+
+
+        height: 85px;
+
+
+        display: flex;
+
+
+        align-items: center;
+
+
+        justify-content: space-between;
+
+
+        padding:
+
+            0 clamp(20px, 6vw, 80px);
+
+
+
+        border-bottom:
+
+            1px solid var(--border);
+
+
+        backdrop-filter: blur(15px);
+
+
+    }
+
+
+
+    .logo {
+
+
+        font-family: var(--title);
+
+        font-size: 28px;
+
+        font-weight: 800;
+
+
+    }
+
+
+
+    .logo span {
+
+
+        color: var(--amber-light);
+
+
+    }
+
+
+
+    .nav-links {
+
+
+        display: flex;
+
+
+        gap: 30px;
+
+
+        color: var(--soft);
+
+
+    }
+
+
+
+    .nav-links a {
+
+
+        transition: .3s;
+
+
+    }
+
+
+
+    .nav-links a:hover {
+
+
+        color: var(--amber-light);
+
+
+    }
+
+
+
+    .lang {
+
+
+        display: flex;
+
+
+        gap: 5px;
+
+
+        padding: 5px;
+
+
+        border-radius: 50px;
+
+
+        background: var(--glass);
+
+
+        border:
+
+            1px solid var(--border);
+
+
+    }
+
+
+
+    .lang button {
+
+
+        padding: 8px 16px;
+
+
+        border: 0;
+
+
+        background: none;
+
+
+        color: white;
+
+
+        border-radius: 50px;
+
+
+        cursor: pointer;
+
+
+    }
+
+
+
+    .lang button.active {
+
+
+        background:
+
+            linear-gradient(135deg,
+                var(--amber),
+                var(--brick-light));
+
+
+        color: #111;
+
+
+    }
+
+
+
+
+
+    /* ===================
+ HERO SEARCH
+=================== */
+
+
+    .hero {
+
+
+        padding:
+
+            70px 20px 40px;
+
+
+        text-align: center;
+
+
+    }
+
+
+
+    .hero h1 {
+
+
+        font-family: var(--title);
+
+
+        font-size:
+
+            clamp(35px, 5vw, 55px);
+
+
+        font-weight: 800;
+
+
+    }
+
+
+
+    .hero h1 span {
+
+
+        color: var(--amber-light);
+
+
+    }
+
+
+
+    .hero p {
+
+
+        margin-top: 18px;
+
+
+        font-size: 18px;
+
+
+        color: var(--soft);
+
+
+    }
+
+
+
+
+
+    /* SEARCH PANEL */
+
+
+    .search-panel {
+
+
+        max-width: 950px;
+
+
+        margin: 45px auto;
+
+
+        padding: 25px;
+
+
+        display: grid;
+
+
+        grid-template-columns:
+
+            2fr 1fr 1fr auto;
+
+
+        gap: 15px;
+
+
+
+        background:
+
+            rgba(255, 255, 255, .06);
+
+
+        border:
+
+            1px solid var(--border);
+
+
+        border-radius: 25px;
+
+
+        backdrop-filter: blur(20px);
+
+
+        box-shadow:
+
+            0 20px 60px rgba(0, 0, 0, .4);
+
+
+    }
+
+
+
+
+    .search-panel input,
+    .search-panel select {
+
+
+        height: 55px;
+
+
+        padding: 0 18px;
+
+
+        border-radius: 12px;
+
+
+        border:
+
+            1px solid var(--border);
+
+
+        background:
+
+            rgba(255, 255, 255, .08);
+
+
+        color: white;
+
+
+        outline: none;
+
+
+        font-size: 15px;
+
+
+    }
+
+
+
+    .search-panel select option {
+
+
+        background:
+
+            var(--navy-800);
+
+
+    }
+
+
+
+    .search-btn {
+
+
+        height: 55px;
+
+
+        padding:
+
+            0 30px;
+
+
+        border: 0;
+
+
+        border-radius: 12px;
+
+
+        font-weight: 700;
+
+
+        cursor: pointer;
+
+
+        background:
+
+            linear-gradient(135deg,
+                var(--amber),
+                var(--brick-light));
+
+
+        color: #111;
+
+
+    }
+
+
+
+
+
+    /* ===================
+ RESULTS
+=================== */
+    .job-top {
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: flex-start;
+
+        gap: 20px;
+
+    }
+
+
+
+    .job-info {
+
+        flex: 1;
+
+    }
+
+
+
+    .worker-image {
+
+        width: 150px;
+
+        height: 150px;
+
+        border-radius: 50%;
+
+        object-fit: cover;
+
+        border: 3px solid var(--amber);
+
+        flex-shrink: 0;
+
+    }
+
+    .results-section {
+
+
+        padding:
+
+            40px clamp(20px, 7vw, 90px);
+
+
+    }
+
+
+
+    .result-header {
+
+
+        display: flex;
+
+
+        justify-content: space-between;
+
+
+        align-items: center;
+
+
+        margin-bottom: 30px;
+
+
+    }
+
+
+
+    .result-header h2 {
+
+
+        font-family: var(--title);
+
+
+    }
+
+
+
+    .result-count {
+
+
+        color: var(--amber-light);
+
+
+    }
+
+
+
+
+    .jobs-grid {
+
+
+        display: grid;
+
+
+        grid-template-columns:
+
+            repeat(3, 1fr);
+
+
+        gap: 25px;
+
+
+    }
+
+
+
+
+    .job-card {
+
+
+        padding: 25px;
+
+
+        background:
+
+            rgba(255, 255, 255, .06);
+
+
+        border:
+
+            1px solid var(--border);
+
+
+        border-radius: 22px;
+
+
+        backdrop-filter: blur(15px);
+
+
+    }
+
+
+
+    .job-card h3 {
+
+
+        font-size: 21px;
+
+
+    }
+
+
+
+    .job-meta {
+
+
+        margin-top: 12px;
+
+
+        color: var(--soft);
+
+
+        line-height: 1.8;
+
+
+    }
+
+
+
+    .price {
+
+
+        margin-top: 15px;
+
+
+        font-size: 20px;
+
+
+        font-weight: 700;
+
+
+        color: var(--amber-light);
+
+
+    }
+
+
+
+    .profile-btn {
+
+
+        display: inline-block;
+
+
+        margin-top: 20px;
+
+
+        padding:
+
+            10px 22px;
+
+
+        border-radius: 30px;
+
+
+        background:
+
+            linear-gradient(135deg,
+                var(--amber),
+                var(--brick-light));
+
+
+        color: #111;
+
+
+        font-weight: 700;
+
+
+    }
+
+
+
+
+
+    /* RESPONSIVE */
+
+
+    @media(max-width:1000px) {
+
+
+        .search-panel {
+
+
+            grid-template-columns: 1fr;
+
+
+        }
+
+
+        .jobs-grid {
+
+
+            grid-template-columns:
+
+                repeat(2, 1fr);
+
+
+        }
+
+
+    }
+
+
+
+    @media(max-width:650px) {
+
+
+        .nav-links {
+
+            display: none;
+
+        }
+
+
+
+        .hero {
+
+
+            padding-top: 40px;
+
+
+        }
+
+
+
+        .jobs-grid {
+
+
+            grid-template-columns: 1fr;
+
+
+        }
+
+
+
+        .result-header {
+
+
+            flex-direction: column;
+
+            gap: 10px;
+
+
+        }
+
+
+    }

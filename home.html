@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PodiJob | Find Skilled Workers</title>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Sinhala:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+
+    <style>
+        :root {
+
+            --navy: #070d14;
+            --navy2: #101d2c;
+
+            --ivory: #f6f2e9;
+            --soft: #cdd3d9;
+
+            --amber: #e3a13c;
+            --amber-light: #f3c874;
+
+            --brick: #bf5535;
+
+            --border: rgba(255, 255, 255, .14);
+
+        }
+
+
+        * {
+
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            font-family: Inter, "Noto Sans Sinhala", sans-serif;
+
+            color: white;
+
+            background:
+                linear-gradient(120deg,
+                    #070d14,
+                    #101d2c);
+
+        }
+
+
+
+        body::before {
+
+            content: "";
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                radial-gradient(circle at 20% 10%,
+                    rgba(227, 161, 60, .18),
+                    transparent 40%),
+
+                radial-gradient(circle at 80% 80%,
+                    rgba(191, 85, 53, .15),
+                    transparent 40%);
+
+            z-index: -1;
+
+        }
+
+
+
+        /* NAVBAR */
+
+
+        .navbar {
+
+            height: 85px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 clamp(20px, 6vw, 80px);
+
+            border-bottom: 1px solid var(--border);
+
+            backdrop-filter: blur(15px);
+
+        }
+
+
+
+        .logo {
+
+            font-family: Poppins;
+
+            font-size: 30px;
+
+            font-weight: 800;
+
+        }
+
+
+        .logo span {
+
+            color: var(--amber-light);
+
+        }
+
+
+
+        .nav-links {
+
+            display: flex;
+
+            gap: 30px;
+
+        }
+
+
+        .nav-links a {
+
+            color: var(--soft);
+
+            text-decoration: none;
+
+            transition: .3s;
+
+        }
+
+
+        .nav-links a:hover {
+
+            color: var(--amber-light);
+
+        }
+
+
+
+        .lang {
+
+            display: flex;
+
+            gap: 5px;
+
+            background: rgba(255, 255, 255, .06);
+
+            padding: 5px;
+
+            border-radius: 50px;
+
+            border: 1px solid var(--border);
+
+        }
+
+
+
+        .lang button {
+
+            border: none;
+
+            background: none;
+
+            color: white;
+
+            padding: 8px 18px;
+
+            border-radius: 50px;
+
+            cursor: pointer;
+
+        }
+
+
+
+        .lang button.active {
+
+            background: linear-gradient(135deg,
+                    var(--amber),
+                    #d97a56);
+
+            color: #111;
+
+        }
+
+
+
+
+        /* HERO */
+
+
+        .hero {
+
+            text-align: center;
+
+            padding: 70px 20px 40px;
+
+        }
+
+
+        .hero h1 {
+
+            font-family: Poppins;
+
+            font-size: clamp(35px, 5vw, 55px);
+
+            font-weight: 800;
+
+        }
+
+
+        .hero h1 span {
+
+            color: var(--amber-light);
+
+        }
+
+
+
+        .hero p {
+
+            margin-top: 20px;
+
+            font-size: 18px;
+
+            color: var(--soft);
+
+            line-height: 1.8;
+
+        }
+
+
+
+
+        /* SEARCH */
+
+
+        .search-panel {
+
+            max-width: 950px;
+
+            margin: 45px auto;
+
+            padding: 25px;
+
+            display: grid;
+
+            grid-template-columns: 2fr 1fr 1fr auto;
+
+            gap: 15px;
+
+            background: rgba(255, 255, 255, .06);
+
+            border: 1px solid var(--border);
+
+            border-radius: 25px;
+
+            backdrop-filter: blur(20px);
+
+        }
+
+
+
+        .search-panel input,
+        .search-panel select {
+
+            height: 55px;
+
+            padding: 0 18px;
+
+            border-radius: 12px;
+
+            border: 1px solid var(--border);
+
+            background: rgba(255, 255, 255, .08);
+
+            color: white;
+
+            outline: none;
+
+        }
+
+
+
+        .search-panel option {
+
+            background: #101d2c;
+
+        }
+
+
+
+        .search-btn {
+
+            height: 55px;
+
+            padding: 0 30px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            cursor: pointer;
+
+            font-weight: 700;
+
+            background: linear-gradient(135deg,
+                    var(--amber),
+                    #d97a56);
+
+        }
+
+
+
+
+        /* RESULTS */
+
+
+        .results-section {
+
+            padding: 40px clamp(20px, 7vw, 90px);
+
+        }
+
+
+
+        .result-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .result-header h2 {
+
+            font-family: Poppins;
+
+        }
+
+
+
+        .result-count {
+
+            color: var(--amber-light);
+
+        }
+
+
+
+
+        .jobs-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 25px;
+
+        }
+
+
+
+
+        .job-card {
+
+            padding: 25px;
+
+            background: rgba(255, 255, 255, .06);
+
+            border: 1px solid var(--border);
+
+            border-radius: 22px;
+
+            backdrop-filter: blur(15px);
+
+        }
+
+
+
+        /* IMAGE RIGHT SIDE */
+
+
+        .job-top {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+        }
+
+
+
+        .job-info {
+
+            flex: 1;
+
+        }
+
+
+
+        .job-card h3 {
+
+            font-size: 22px;
+
+        }
+
+
+
+        .worker-image {
+
+            width: 150px;
+
+            height: 150px;
+
+            border-radius: 50%;
+
+            object-fit: cover;
+
+            border: 3px solid var(--amber);
+
+        }
+
+
+
+        .job-meta {
+
+            margin-top: 15px;
+
+            line-height: 1.8;
+
+            color: var(--soft);
+
+        }
+
+
+
+        .price {
+
+            margin-top: 15px;
+
+            font-size: 20px;
+
+            font-weight: 700;
+
+            color: var(--amber-light);
+
+        }
+
+
+
+        .profile-btn {
+
+            display: inline-block;
+
+            margin-top: 20px;
+
+            padding: 10px 22px;
+
+            border-radius: 30px;
+
+            background: linear-gradient(135deg,
+                    var(--amber),
+                    #d97a56);
+
+            color: #111;
+
+            font-weight: 700;
+
+            text-decoration: none;
+
+        }
+
+
+
+
+
+        @media(max-width:1000px) {
+
+            .search-panel {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .jobs-grid {
+
+                grid-template-columns: repeat(2, 1fr);
+
+            }
+
+        }
+
+
+
+        @media(max-width:650px) {
+
+
+            .nav-links {
+
+                display: none;
+
+            }
+
+
+            .jobs-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+
+    <header class="navbar">
+
+        <div class="logo">
+            podi<span>JOB</span>
+        </div>
+
+        <nav class="nav-links">
+            <a data-si="මුල් පිටුව" data-en="Home">Home</a>
+            <a data-si="රැකියා" data-en="Jobs">Jobs</a>
+            <a data-si="සේවකයින්" data-en="Workers">Workers</a>
+            <a data-si="අප ගැන" data-en="About">About</a>
+        </nav>
+
+        <div class="lang">
+            <button onclick="changeLanguage('si')">සිංහල</button>
+            <button class="active" onclick="changeLanguage('en')">English</button>
+        </div>
+
+    </header>
+
+
+    <section class="hero">
+
+        <h1>
+            <span>podiJOB</span>
+
+            <span id="heroTitle" data-si="එකෙන් රැකියා සොයන්න" data-en="Find Jobs Easily">
+                Find Jobs Easily
+            </span>
+        </h1>
+
+        <p id="heroDesc" data-si="ඔබට අවශ්‍ය සේවකයන් පහසුවෙන් සොයාගන්න"
+            data-en="Find skilled workers and jobs near your city">
+            Find skilled workers and jobs near your city
+        </p>
+
+
+        <div class="search-panel">
+
+            <input id="searchInput" data-si="රැකියාව සොයන්න" data-en="Search job / skill"
+                placeholder="Search job / skill">
+
+
+            <select id="category">
+
+                <option value="All" data-si="සියලුම කාණ්ඩ" data-en="All Categories">
+                    All Categories
+                </option>
+
+                <option value="Construction" data-si="පෙදරේරු" data-en="Construction">
+                    Construction
+                </option>
+
+                <option value="Painter" data-si="පින්තාරු කාර්මික" data-en="Painter">
+                    Painter
+                </option>
+
+                <option value="Electrical" data-si="විදුලි කාර්මික" data-en="Electrical">
+                    Electrical
+                </option>
+
+                <option value="Plumbing" data-si="ජලනල කාර්මික" data-en="Plumber">
+                    Plumber
+                </option>
+
+                <option value="Driving" data-si="රියදුරු" data-en="Driver">
+                    Driver
+                </option>
+
+            </select>
+
+            
+            <select id="district">
+
+                <option value="All" data-si="සියලුම නගර" data-en="All Cities">
+                    All Districts
+                </option>
+
+                <option value="Kandy" data-si="මහනුවර" data-en="Kandy">
+                    Kandy
+                </option>
+
+                <option value="Kegalle" data-si="කෑගල්ල" data-en="Kegalle">
+                    Kegalle
+                </option>
+
+                <option value="Galle" data-si="ගාල්ල" data-en="Galle">
+                    Galle
+                </option>
+
+                <option value="Colombo" data-si="කොළඹ" data-en="Colombo">
+                    Colombo
+                </option>
+
+            </select>
+
+
+            <select id="city">
+
+                <option value="All" data-si="සියලුම නගර" data-en="All Cities">
+                    All Cities
+                </option>
+
+                <option value="Kandy" data-si="මහනුවර" data-en="Kandy">
+                    Kandy
+                </option>
+
+                <option value="Kegalle" data-si="කෑගල්ල" data-en="Kegalle">
+                    Kegalle
+                </option>
+
+                <option value="Galle" data-si="ගාල්ල" data-en="Galle">
+                    Galle
+                </option>
+
+                <option value="Colombo" data-si="කොළඹ" data-en="Colombo">
+                    Colombo
+                </option>
+
+            </select>
+
+
+            <button class="search-btn" id="searchText"  data-si="සොයන්න" data-en="Search">
+                Search
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <section class="results-section">
+
+        <div class="result-header">
+
+            <h2 id="resultTitle" data-si="ලබාගත හැකි රැකියා" data-en="Available Jobs">
+                Available Jobs
+            </h2>
+
+            <div class="result-count"></div>
+
+        </div>
+
+        <div class="jobs-grid"></div>
+
+    </section>
+
+
+
+
+
+    <script>
+
+
+        const jobs = [
+
+            {
+                title: "Electrician",
+                sinhala: "විදුලි කාර්මික",
+                category: "Electrical",
+                categorySi: "විදුලි කාර්මික",
+                city: "Kandy",
+                location: "මහනුවර",
+                price: "Rs 3500 / Day",
+                image: "https://randomuser.me/api/portraits/men/45.jpg",
+                rating: "4.8"
+            },
+
+
+            {
+                title: "Mason",
+                sinhala: "පෙදරේරු",
+                category: "Construction",
+                categorySi: "ඉදිකිරීම්",
+                city: "Colombo",
+                location: "කොළඹ",
+                price: "Rs 4500 / Day",
+                image: "https://randomuser.me/api/portraits/men/32.jpg",
+                rating: "4.7"
+            },
+
+
+            {
+                title: "Plumber",
+                sinhala: "ජලනල කාර්මික",
+                category: "Plumbing",
+                categorySi: "ජලනල කාර්මික",
+                city: "Kegalle",
+                location: "කෑගල්ල",
+                price: "Rs 3000 / Day",
+                image: "https://randomuser.me/api/portraits/men/12.jpg",
+                rating: "4.9"
+            },
+
+
+            {
+                title: "Driver",
+                sinhala: "රියදුරු",
+                category: "Driving",
+                categorySi: "රියදුරු",
+                city: "Galle",
+                location: "ගාල්ල",
+                price: "Rs 5000 / Day",
+                image: "https://randomuser.me/api/portraits/men/65.jpg",
+                rating: "4.6"
+            },
+
+
+            {
+                title: "Painter",
+                sinhala: "පින්තාරු කාර්මික",
+                category: "Painter",
+                categorySi: "පින්තාරු කාර්මික",
+                city: "Kandy",
+                location: "මහනුවර",
+                price: "Rs 4000 / Day",
+                image: "https://randomuser.me/api/portraits/men/75.jpg",
+                rating: "4.8"
+            }
+
+
+        ];
+
+
+
+
+        let language = "en";
+
+
+
+        const grid = document.querySelector(".jobs-grid");
+
+        const count = document.querySelector(".result-count");
+
+        const searchInput = document.querySelector("#searchInput");
+
+        const category = document.querySelector("#category");
+
+        const city = document.querySelector("#city");
+
+
+
+
+
+
+
+        function loadJobs(data) {
+
+
+            grid.innerHTML = "";
+
+
+            count.innerHTML =
+                `${data.length} ${language === "si"
+                    ? "ප්‍රතිඵල හමු විය"
+                    : "Results Found"
+                }`;
+
+
+
+
+
+            data.forEach(job => {
+
+
+                grid.innerHTML += `
+
+
+<div class="job-card">
+
+
+<div class="job-top">
+
+
+<div class="job-info">
+
+
+<h3>
+
+${language === "si"
+                        ? job.sinhala
+                        : job.title
+                    }
+
+</h3>
+
+
+
+<div class="job-meta">
+
+
+📍
+
+${language === "si"
+                        ? job.location
+                        : job.city
+                    }
+
+
+<br>
+
+
+🛠
+
+${language === "si"
+                        ? job.categorySi
+                        : job.category
+                    }
+
+
+<br>
+
+
+⭐ ${job.rating}
+
+
+</div>
+
+
+</div>
+
+
+
+
+<img 
+src="${job.image}"
+class="worker-image">
+
+
+
+</div>
+
+
+
+
+<div class="price">
+
+${job.price}
+
+</div>
+
+
+
+
+<a href="#" class="profile-btn">
+
+${language === "si"
+                        ? "Profile බලන්න"
+                        : "View Profile"
+                    }
+
+</a>
+
+
+
+</div>
+
+
+
+`;
+
+
+            });
+
+
+        }
+
+
+
+
+
+
+
+
+
+        function searchJobs() {
+
+
+            let text =
+                searchInput.value.toLowerCase();
+
+
+
+            let selectedCategory =
+                category.value;
+
+
+
+            let selectedCity =
+                city.value;
+
+
+
+
+            let result =
+                jobs.filter(job => {
+
+
+                    let textMatch =
+
+                        job.title.toLowerCase()
+                            .includes(text)
+
+                        ||
+
+                        job.sinhala.includes(text);
+
+
+
+
+                    let categoryMatch =
+
+                        selectedCategory.includes("All")
+                        ||
+                        selectedCategory.includes("සියලු")
+                        ||
+                        job.category === selectedCategory;
+
+
+
+
+                    let cityMatch =
+
+                        selectedCity.includes("All")
+                        ||
+                        selectedCity.includes("සියලු")
+                        ||
+                        job.city === selectedCity;
+
+
+
+                    return textMatch &&
+                        categoryMatch &&
+                        cityMatch;
+
+
+                });
+
+
+
+            loadJobs(result);
+
+
+        }
+
+
+
+
+
+
+
+
+        document.querySelector(".search-btn")
+            .addEventListener(
+                "click",
+                searchJobs
+            );
+
+
+
+
+        searchInput.addEventListener(
+            "keyup",
+            function (e) {
+
+                if (e.key === "Enter") {
+
+                    searchJobs();
+
+                }
+
+            });
+
+
+
+
+
+
+
+
+
+        function changeLanguage(lang) {
+
+
+            language = lang;
+
+
+
+            document.querySelectorAll("[data-si]")
+                .forEach(el => {
+
+
+                    if (el.tagName === "INPUT") {
+
+
+                        el.placeholder =
+                            lang === "si"
+                                ? el.dataset.si
+                                : el.dataset.en;
+
+
+                    }
+
+                    else {
+
+
+                        el.innerHTML =
+                            lang === "si"
+                                ? el.dataset.si
+                                : el.dataset.en;
+
+
+                    }
+
+
+                });
+
+
+
+
+
+            document.querySelectorAll(".lang button")
+                .forEach(btn => {
+
+                    btn.classList.remove("active");
+
+                });
+
+
+
+            event.target.classList.add("active");
+
+
+
+            loadJobs(jobs);
+
+
+        }
+
+
+
+
+
+
+        loadJobs(jobs);
+
+
+
+    </script>
+
+
+</body>
+
+</html>

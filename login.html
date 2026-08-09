@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podi Job — පිවිසෙන්න / Log In</title>
+
+    <!-- Google Fonts: Poppins (display), Inter (body, Latin), Noto Sans Sinhala (Sinhala script) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Noto+Sans+Sinhala:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ============================================================
+     DESIGN TOKENS — same system as the Podi Job registration page
+     ============================================================ */
+        :root {
+            --navy-950: #070d14;
+            --navy-900: #0b1420;
+            --navy-800: #101d2c;
+            --navy-700: #16283a;
+
+            --ivory: #f6f2e9;
+            --ivory-dim: #cdd3d9;
+            --muted: #93a1ac;
+
+            --amber: #e3a13c;
+            --amber-light: #f3c874;
+            --brick: #bf5535;
+            --brick-light: #d97a56;
+
+            --success: #4caf7d;
+            --error: #ff7a68;
+
+            --glass-bg: rgba(18, 28, 40, 0.46);
+            --glass-bg-soft: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.14);
+
+            --radius-lg: 22px;
+            --radius-md: 14px;
+            --radius-sm: 9px;
+
+            --shadow-soft: 0 20px 60px -20px rgba(0, 0, 0, 0.55);
+
+            --ease: cubic-bezier(.22, 1, .36, 1);
+
+            --font-display: 'Poppins', 'Noto Sans Sinhala', sans-serif;
+            --font-body: 'Inter', 'Noto Sans Sinhala', sans-serif;
+        }
+
+        html[lang="si"] {
+            --font-display: 'Noto Sans Sinhala', 'Poppins', sans-serif;
+            --font-body: 'Noto Sans Sinhala', 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100svh;
+            font-family: var(--font-body);
+            color: var(--ivory);
+            background: var(--navy-950);
+            overflow-x: hidden;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        /* ============================================================
+     BACKGROUND
+     ============================================================ */
+        .bg-photo {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background-image: url('https://images.unsplash.com/photo-1529792083865-d23889753466?auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center 30%;
+            filter: saturate(1.05);
+            transform: scale(1.02);
+        }
+
+        .bg-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background:
+                radial-gradient(1100px 700px at 86% 20%, rgba(191, 85, 53, 0.18), transparent 60%),
+                radial-gradient(900px 600px at 12% 85%, rgba(227, 161, 60, 0.14), transparent 55%),
+                linear-gradient(115deg, rgba(6, 10, 16, 0.94) 0%, rgba(9, 15, 23, 0.90) 38%, rgba(11, 18, 28, 0.80) 62%, rgba(7, 12, 19, 0.93) 100%);
+        }
+
+        .bg-overlay::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.015) 0px, rgba(255, 255, 255, 0.015) 1px, transparent 1px, transparent 3px);
+            mix-blend-mode: overlay;
+        }
+
+        /* ============================================================
+     TOP BAR
+     ============================================================ */
+        .topbar {
+            position: relative;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 26px clamp(20px, 5vw, 64px) 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-mark {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            flex-shrink: 0;
+        }
+
+        .logo-mark svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .logo-text {
+            font-family: 'Poppins', sans-serif !important;
+            font-weight: 800;
+            font-size: 30px;
+            letter-spacing: 0.2px;
+            color: var(--ivory);
+        }
+
+        .logo-text span {
+            color: var(--amber-light);
+        }
+
+        .lang-toggle {
+            display: flex;
+            background: var(--glass-bg-soft);
+            border: 1px solid var(--glass-border);
+            border-radius: 999px;
+            padding: 4px;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        .lang-btn {
+            border: none;
+            background: transparent;
+            color: var(--ivory-dim);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 999px;
+            transition: all .35s var(--ease);
+            font-family: 'Inter', 'Noto Sans Sinhala', sans-serif;
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, var(--amber), var(--brick-light));
+            color: var(--navy-950);
+            box-shadow: 0 4px 14px -4px rgba(227, 161, 60, 0.6);
+        }
+
+        .lang-btn:not(.active):hover {
+            color: var(--ivory);
+        }
+
+        /* ============================================================
+     LAYOUT — centered single card (login needs less real estate
+     than the two-step registration flow)
+     ============================================================ */
+        .wrap {
+            position: relative;
+            z-index: 2;
+            min-height: 100svh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px clamp(20px, 5vw, 64px) 60px;
+        }
+
+        .login-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 60px;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .hero-copy {
+            animation: fadeUp .9s var(--ease) both;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            color: var(--amber-light);
+            background: rgba(227, 161, 60, 0.1);
+            border: 1px solid rgba(227, 161, 60, 0.3);
+            padding: 7px 14px;
+            border-radius: 999px;
+            margin-bottom: 22px;
+        }
+
+        .eyebrow-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--amber);
+            box-shadow: 0 0 0 4px rgba(227, 161, 60, 0.18);
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: clamp(28px, 3.6vw, 42px);
+            line-height: 1.18;
+            color: var(--ivory);
+            max-width: 480px;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-sub {
+            font-size: 15.5px;
+            line-height: 1.7;
+            color: var(--ivory-dim);
+            max-width: 420px;
+            margin-bottom: 30px;
+        }
+
+        .tagline {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--amber-light);
+            border-left: 3px solid var(--brick-light);
+            padding-left: 14px;
+        }
+
+        .card-outer {
+            animation: fadeUp 1s var(--ease) both;
+            animation-delay: .1s;
+            display: flex;
+            justify-content: center;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 420px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            backdrop-filter: blur(22px) saturate(140%);
+            -webkit-backdrop-filter: blur(22px) saturate(140%);
+            box-shadow: var(--shadow-soft), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            padding: 36px 30px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: -40%;
+            left: -30%;
+            width: 280px;
+            height: 280px;
+            background: radial-gradient(circle, rgba(227, 161, 60, 0.16), transparent 70%);
+            pointer-events: none;
+        }
+
+        .card-head {
+            text-align: center;
+            margin-bottom: 28px;
+            position: relative;
+        }
+
+        .card-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: linear-gradient(145deg, var(--amber), var(--brick));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            box-shadow: 0 10px 24px -8px rgba(227, 161, 60, 0.5);
+        }
+
+        .card-icon svg {
+            width: 24px;
+            height: 24px;
+            color: var(--navy-950);
+        }
+
+        .card-title {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+
+        .card-sub {
+            font-size: 13.5px;
+            color: var(--muted);
+        }
+
+        /* Form fields (shared styling with registration page) */
+        .field {
+            margin-bottom: 16px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ivory-dim);
+            margin-bottom: 6px;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .field input {
+            width: 100%;
+            padding: 12.5px 14px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.045);
+            color: var(--ivory);
+            font-size: 14.5px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color .25s var(--ease), background .25s var(--ease), box-shadow .25s var(--ease);
+        }
+
+        .field input.with-icon {
+            padding-left: 42px;
+        }
+
+        .field-icon {
+            position: absolute;
+            left: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+            pointer-events: none;
+            display: flex;
+            transition: color .25s var(--ease);
+        }
+
+        .field-icon svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .field input:focus {
+            border-color: var(--amber);
+            background: rgba(227, 161, 60, 0.06);
+            box-shadow: 0 0 0 3px rgba(227, 161, 60, 0.14);
+        }
+
+        .field input:focus~.field-icon,
+        .input-wrap:focus-within .field-icon {
+            color: var(--amber-light);
+        }
+
+        .field input::placeholder {
+            color: var(--muted);
+        }
+
+        .field.has-error input {
+            border-color: var(--error);
+            background: rgba(255, 122, 104, 0.06);
+        }
+
+        .field-error {
+            font-size: 12px;
+            color: var(--error);
+            margin-top: 6px;
+            display: none;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .field.has-error .field-error {
+            display: flex;
+        }
+
+        .toggle-pass {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--muted);
+            padding: 4px;
+            display: flex;
+        }
+
+        .toggle-pass:hover {
+            color: var(--ivory);
+        }
+
+        .toggle-pass svg {
+            width: 17px;
+            height: 17px;
+        }
+
+        .form-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 22px;
+            margin-top: -2px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--ivory-dim);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .remember input {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 17px;
+            height: 17px;
+            border-radius: 5px;
+            border: 1.5px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all .2s var(--ease);
+            position: relative;
+        }
+
+        .remember input:checked {
+            background: linear-gradient(135deg, var(--amber), var(--brick-light));
+            border-color: transparent;
+        }
+
+        .remember input:checked::after {
+            content: "";
+            position: absolute;
+            left: 5px;
+            top: 1.5px;
+            width: 4px;
+            height: 8px;
+            border: solid var(--navy-950);
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .forgot-link {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--amber-light);
+            transition: color .25s var(--ease);
+        }
+
+        .forgot-link:hover {
+            color: var(--ivory);
+            text-decoration: underline;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: var(--radius-sm);
+            border: none;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 0.2px;
+            transition: transform .25s var(--ease), box-shadow .25s var(--ease), filter .25s var(--ease);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--amber), var(--brick-light));
+            color: var(--navy-950);
+            box-shadow: 0 10px 26px -8px rgba(227, 161, 60, 0.55);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.06);
+            box-shadow: 0 14px 30px -8px rgba(227, 161, 60, 0.65);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-primary .spinner {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid rgba(7, 13, 20, 0.35);
+            border-top-color: var(--navy-950);
+            animation: spin .7s linear infinite;
+            display: none;
+        }
+
+        .btn-primary.loading .spinner {
+            display: inline-block;
+        }
+
+        .btn-primary.loading .btn-label {
+            display: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 22px 0;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: var(--glass-border);
+        }
+
+        .divider-note {
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .divider-note a {
+            color: var(--amber-light);
+            font-weight: 600;
+            transition: color .25s var(--ease);
+        }
+
+        .divider-note a:hover {
+            color: var(--ivory);
+            text-decoration: underline;
+        }
+
+        .visitor-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.035);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            padding: 12px 14px;
+            margin-top: 20px;
+            font-size: 12.5px;
+            line-height: 1.55;
+            color: var(--muted);
+        }
+
+        .visitor-note svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            margin-top: 1px;
+            color: var(--amber-light);
+        }
+
+        .visitor-note a {
+            color: var(--amber-light);
+            font-weight: 600;
+        }
+
+        .visitor-note a:hover {
+            text-decoration: underline;
+        }
+
+        /* Success overlay */
+        .success-overlay {
+            position: absolute;
+            inset: 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(22px) saturate(140%);
+            -webkit-backdrop-filter: blur(22px) saturate(140%);
+            border-radius: var(--radius-lg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 30px;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.96);
+            transition: opacity .4s var(--ease), transform .4s var(--ease);
+        }
+
+        .success-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+        }
+
+        .success-btn {
+            margin-top: 26px;
+            padding: 13px 34px;
+
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 999px;
+
+            background: linear-gradient(135deg,
+                    var(--success),
+                    #3a8f66);
+
+            color: #fff;
+
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 700;
+
+            letter-spacing: .3px;
+
+            cursor: pointer;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+
+            box-shadow:
+                0 12px 30px -10px rgba(76, 175, 125, 0.65);
+
+            transition:
+                transform .3s var(--ease),
+                box-shadow .3s var(--ease),
+                filter .3s var(--ease);
+        }
+
+
+        .success-btn:hover {
+
+            transform: translateY(-3px);
+
+            filter: brightness(1.08);
+
+            box-shadow:
+                0 18px 40px -12px rgba(76, 175, 125, 0.8);
+
+        }
+
+
+        .success-btn:active {
+
+            transform: translateY(0);
+
+        }
+
+
+        /* Optional icon inside button */
+
+        .success-btn svg {
+
+            width: 17px;
+            height: 17px;
+
+        }
+
+        .success-icon {
+            width: 66px;
+            height: 66px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--success), #3a8f66);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 18px;
+            box-shadow: 0 10px 26px -8px rgba(76, 175, 125, 0.55);
+            animation: pop .5s var(--ease) both .15s;
+        }
+
+        .success-icon svg {
+            width: 30px;
+            height: 30px;
+            color: #fff;
+        }
+
+        .success-title {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .success-msg {
+            font-size: 14px;
+            color: var(--ivory-dim);
+            line-height: 1.6;
+            max-width: 300px;
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(0.4);
+                opacity: 0;
+            }
+
+            70% {
+                transform: scale(1.08);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shake {
+
+            10%,
+            90% {
+                transform: translateX(-1px);
+            }
+
+            20%,
+            80% {
+                transform: translateX(2px);
+            }
+
+            30%,
+            50%,
+            70% {
+                transform: translateX(-4px);
+            }
+
+            40%,
+            60% {
+                transform: translateX(4px);
+            }
+        }
+
+        .shake {
+            animation: shake .5s;
+        }
+
+        footer.page-footer {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            font-size: 12px;
+            color: var(--muted);
+            padding: 0 20px 30px;
+        }
+
+        /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+        @media (max-width:900px) {
+            .login-layout {
+                grid-template-columns: 1fr;
+                gap: 34px;
+            }
+
+            .hero-copy {
+                text-align: center;
+                order: 1;
+            }
+
+            .eyebrow,
+            .hero-title,
+            .hero-sub {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .tagline {
+                margin-left: auto;
+                margin-right: auto;
+                border-left: none;
+                border-top: 2px solid var(--brick-light);
+                padding-left: 0;
+                padding-top: 10px;
+                display: inline-block;
+            }
+
+            .card-outer {
+                order: 2;
+            }
+        }
+
+        @media (max-width:520px) {
+            .topbar {
+                padding: 20px 16px 0;
+            }
+
+            .wrap {
+                padding: 24px 16px 40px;
+            }
+
+            .card {
+                padding: 28px 20px 24px;
+            }
+
+            .hero-title {
+                font-size: 25px;
+            }
+
+            .logo-text {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-photo" aria-hidden="true"></div>
+    <div class="bg-overlay" aria-hidden="true"></div>
+
+    <!-- ================= TOP BAR ================= -->
+    <div class="topbar">
+        <div class="logo">
+            <div class="logo-mark">
+
+            </div>
+            <div class="logo-text">Podi<span>Job</span></div>
+        </div>
+
+        <div class="lang-toggle" role="group" aria-label="Language">
+            <button class="lang-btn" id="btnSi" onclick="setLang('si')">සිංහල</button>
+            <button class="lang-btn" id="btnEn" onclick="setLang('en')">English</button>
+        </div>
+    </div>
+
+    <!-- ================= MAIN LAYOUT ================= -->
+    <div class="wrap">
+        <div class="login-layout">
+
+            <!-- LEFT: hero copy -->
+            <section class="hero-copy">
+                <div class="eyebrow"><span class="eyebrow-dot"></span><span data-i18n="eyebrow">නැවත සාදරයෙන්
+                        පිළිගනිමු</span></div>
+                <h1 class="hero-title" data-i18n="heroTitle">ඔබගේ ඊළඟ රැකියාව එක් පිවිසුමකින්</h1>
+                <p class="hero-sub" data-i18n="heroSub">ඔබගේ පැතිකඩට පිවිසී, පාරිභෝගිකයන් ඔබව සොයාගන්නා ආකාරය බලන්න.</p>
+                <div class="tagline" data-i18n="tagline">ඔබගේ දක්ෂතා පෙන්වන්න. අවස්ථා සොයාගන්න.</div>
+            </section>
+
+            <!-- RIGHT: glass card login form -->
+            <section class="card-outer">
+                <div class="card">
+
+                    <div class="card-head">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                                <polyline points="10 17 15 12 10 7" />
+                                <line x1="15" y1="12" x2="3" y2="12" />
+                            </svg>
+                        </div>
+                        <div class="card-title" data-i18n="cardTitle">ගිණුමට පිවිසෙන්න</div>
+                        <div class="card-sub" data-i18n="cardSub">ඔබගේ පැතිකඩ කළමනාකරණය කිරීමට පිවිසෙන්න</div>
+                    </div>
+
+                    <form id="loginForm" novalidate>
+
+                        <div class="field" id="f-identifier">
+                            <label data-i18n="identifier">දුරකථන අංකය හෝ විද්‍යුත් තැපෑල</label>
+                            <div class="input-wrap">
+                                <span class="field-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path
+                                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                                    </svg>
+                                </span>
+                                <input type="text" id="identifier" class="with-icon" autocomplete="username"
+                                    data-i18n-ph="identifierPh" placeholder="07X XXX XXXX / you@example.com">
+                            </div>
+                            <div class="field-error"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2.5">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <line x1="12" y1="8" x2="12" y2="13" />
+                                    <line x1="12" y1="16" x2="12.01" y2="16" />
+                                </svg><span data-i18n="identifierError">දුරකථන අංකයක් හෝ විද්‍යුත් තැපෑලක් ඇතුළත්
+                                    කරන්න</span></div>
+                        </div>
+
+                        <div class="field" id="f-password">
+                            <label data-i18n="password">මුරපදය</label>
+                            <div class="input-wrap">
+                                <span class="field-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="11" width="18" height="10" rx="2" />
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                    </svg>
+                                </span>
+                                <input type="password" id="password" class="with-icon" autocomplete="current-password"
+                                    data-i18n-ph="passwordPh" placeholder="ඔබගේ මුරපදය">
+                                <button type="button" class="toggle-pass" onclick="togglePass('password',this)"
+                                    aria-label="Show password" style="right:12px;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                        <circle cx="12" cy="12" r="3" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="field-error"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2.5">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <line x1="12" y1="8" x2="12" y2="13" />
+                                    <line x1="12" y1="16" x2="12.01" y2="16" />
+                                </svg><span data-i18n="passwordError">කරුණාකර ඔබගේ මුරපදය ඇතුළත් කරන්න</span></div>
+                        </div>
+
+                        <div class="form-meta">
+                            <label class="remember">
+                                <input type="checkbox" id="rememberMe">
+                                <span data-i18n="rememberMe">මතක තබාගන්න</span>
+                            </label>
+                            <a href="#" class="forgot-link" data-i18n="forgotPassword">මුරපදය අමතකද?</a>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" id="submitBtn">
+                            <span class="btn-label" data-i18n="loginBtn">පිවිසෙන්න</span>
+                            <span class="spinner"></span>
+                        </button>
+
+                        <div class="divider"><span data-i18n="dividerText">හෝ</span></div>
+
+                        <div class="divider-note">
+                            <span data-i18n="noAccount">ගිණුමක් නොමැතිද?</span>
+                            <a href="part.html" data-i18n="registerLink">ලියාපදිංචි වන්න</a>
+                        </div>
+
+                        <div class="visitor-note">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="12" y1="16" x2="12" y2="12" />
+                                <line x1="12" y1="8" x2="12.01" y2="8" />
+                            </svg>
+                            <span data-i18n="visitorNote">වෘත්තිකයෙකු සොයනවාද? ගිණුමක් අවශ්‍ය නැත — <a href="#"
+                                    data-i18n="browseLink">කම්කරුවන් පිරික්සන්න</a>.</span>
+                        </div>
+
+                    </form>
+
+                    <!-- success state -->
+                    <div class="success-overlay" id="successOverlay">
+                        <div class="success-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                        </div>
+                        <div class="success-title" data-i18n="successTitle">සාදරයෙන් පිළිගනිමු!</div>
+                        <p class="success-msg" data-i18n="successMsg">ඔබ සාර්ථකව පිවිසුණි. ඔබගේ පැතිකඩ වෙත යොමු
+                            කරමින්...</p>
+
+
+                        <button class="success-btn" onclick="goToProfile()">
+                            <span data-i18n="completeProfile">
+                                පැතිකඩ සම්පූර්ණ කරන්න
+                            </span>
+
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                                stroke-linecap="round" stroke-linejoin="round">
+
+                                <polyline points="9 18 15 12 9 6"></polyline>
+
+                            </svg>
+
+                        </button>
+                    </div>
+
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <footer class="page-footer">© 2026 Podi Job — <span data-i18n="footerNote">ශ්‍රී ලංකාවේ දක්ෂ කම්කරුවන් සඳහා</span>
+    </footer>
+
+    <script>
+
+        function goToProfile() {
+            window.location.href = "home.html";
+        }
+        /* ============================================================
+           TRANSLATIONS
+           ============================================================ */
+        const translations = {
+            si: {
+                eyebrow: "නැවත සාදරයෙන් පිළිගනිමු",
+                heroTitle: "ඔබගේ ඊළඟ රැකියාව එක් පිවිසුමකින්",
+                heroSub: "ඔබගේ පැතිකඩට පිවිසී, පාරිභෝගිකයන් ඔබව සොයාගන්නා ආකාරය බලන්න.",
+                tagline: "ඔබගේ දක්ෂතා පෙන්වන්න. අවස්ථා සොයාගන්න.",
+                cardTitle: "ගිණුමට පිවිසෙන්න",
+                cardSub: "ඔබගේ පැතිකඩ කළමනාකරණය කිරීමට පිවිසෙන්න",
+                identifier: "දුරකථන අංකය හෝ විද්‍යුත් තැපෑල",
+                identifierPh: "07X XXX XXXX / you@example.com",
+                identifierError: "දුරකථන අංකයක් හෝ විද්‍යුත් තැපෑලක් ඇතුළත් කරන්න",
+                password: "මුරපදය",
+                passwordPh: "ඔබගේ මුරපදය",
+                passwordError: "කරුණාකර ඔබගේ මුරපදය ඇතුළත් කරන්න",
+                rememberMe: "මතක තබාගන්න",
+                forgotPassword: "මුරපදය අමතකද?",
+                loginBtn: "පිවිසෙන්න",
+                dividerText: "හෝ",
+                noAccount: "ගිණුමක් නොමැතිද?",
+                registerLink: "ලියාපදිංචි වන්න",
+                visitorNote: "වෘත්තිකයෙකු සොයනවාද? ගිණුමක් අවශ්‍ය නැත —",
+                browseLink: "කම්කරුවන් පිරික්සන්න",
+                successTitle: "සාදරයෙන් පිළිගනිමු!",
+                successMsg: "ඔබ සාර්ථකව පිවිසුණි. ඔබගේ පැතිකඩ වෙත යොමු කරමින්...",
+                completeProfile: "පැතිකඩ සම්පූර්ණ කරන්න",
+                footerNote: "ශ්‍රී ලංකාවේ දක්ෂ කම්කරුවන් සඳහා"
+            },
+            en: {
+                eyebrow: "Welcome back",
+                heroTitle: "Your next job is one login away",
+                heroSub: "Sign in to your profile and see how customers are finding you.",
+                tagline: "Show your skills. Find opportunities.",
+                cardTitle: "Log in to your account",
+                cardSub: "Sign in to manage your worker profile",
+                identifier: "Phone Number or Email",
+                identifierPh: "07X XXX XXXX / you@example.com",
+                identifierError: "Enter your phone number or email",
+                password: "Password",
+                passwordPh: "Your password",
+                passwordError: "Please enter your password",
+                rememberMe: "Remember me",
+                forgotPassword: "Forgot password?",
+                loginBtn: "Log In",
+                dividerText: "or",
+                noAccount: "Don't have an account?",
+                registerLink: "Register",
+                visitorNote: "Looking for a worker? No account needed —",
+                browseLink: "browse worker profiles",
+                successTitle: "Welcome back!",
+                successMsg: "You've signed in successfully. Redirecting to your profile...",
+                completeProfile: "Complete your profile",
+                footerNote: "Built for Sri Lanka's skilled workers"
+            }
+        };
+
+        let currentLang = "si";
+
+        /* ---------- Language switching ---------- */
+        function setLang(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            document.getElementById("btnSi").classList.toggle("active", lang === "si");
+            document.getElementById("btnEn").classList.toggle("active", lang === "en");
+
+            document.querySelectorAll("[data-i18n]").forEach(el => {
+                const key = el.getAttribute("data-i18n");
+                if (translations[lang][key] !== undefined) el.textContent = translations[lang][key];
+            });
+            document.querySelectorAll("[data-i18n-ph]").forEach(el => {
+                const key = el.getAttribute("data-i18n-ph");
+                if (translations[lang][key] !== undefined) el.setAttribute("placeholder", translations[lang][key]);
+            });
+        }
+
+        /* ---------- Password visibility ---------- */
+        function togglePass(id, btn) {
+            const input = document.getElementById(id);
+            const isPass = input.type === "password";
+            input.type = isPass ? "text" : "password";
+            btn.innerHTML = isPass
+                ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.9 10.9 0 0 1 12 20c-7 0-11-8-11-8a18.6 18.6 0 0 1 5.06-5.94M9.9 4.24A10.9 10.9 0 0 1 12 4c7 0 11 8 11 8a18.7 18.7 0 0 1-2.16 3.19M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>'
+                : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+        }
+
+        /* ---------- Validation helpers ---------- */
+        function setFieldError(fieldId, show) {
+            document.getElementById(fieldId).classList.toggle("has-error", show);
+        }
+        function validateIdentifier(value) {
+            const cleaned = value.replace(/\s|-/g, "");
+            const isPhone = /^(?:\+94|0)[1-9][0-9]{8}$/.test(cleaned);
+            const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+            return isPhone || isEmail;
+        }
+
+        /* ---------- Form submit ---------- */
+        document.getElementById("loginForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const identifier = document.getElementById("identifier").value.trim();
+            const password = document.getElementById("password").value;
+
+            let valid = true;
+
+            const idOk = identifier.length > 0 && validateIdentifier(identifier);
+            setFieldError("f-identifier", !idOk);
+            if (!idOk) valid = false;
+
+            const passOk = password.length > 0;
+            setFieldError("f-password", !passOk);
+            if (!passOk) valid = false;
+
+            if (!valid) {
+                const firstError = document.querySelector(".field.has-error");
+                if (firstError) {
+                    firstError.classList.add("shake");
+                    setTimeout(() => firstError.classList.remove("shake"), 500);
+                }
+                return;
+            }
+
+            // Simulate authentication (no backend in this demo)
+            const submitBtn = document.getElementById("submitBtn");
+            submitBtn.classList.add("loading");
+            submitBtn.disabled = true;
+            setTimeout(() => {
+                submitBtn.classList.remove("loading");
+                document.getElementById("successOverlay").classList.add("show");
+            }, 900);
+        });
+
+        /* Clear field error as the user types */
+        ["identifier", "password"].forEach(id => {
+            document.getElementById(id).addEventListener("input", () => {
+                document.getElementById(id).closest(".field").classList.remove("has-error");
+            });
+        });
+
+        /* ---------- Init ---------- */
+        setLang("en");
+    </script>
+</body>
+
+</html>
