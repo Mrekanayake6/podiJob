@@ -2620,6 +2620,11 @@
             setTimeout(() => {
                 btn.disabled = false;
                 document.getElementById("successOverlay").classList.add("show");
+
+                 // Done button click
+                document.querySelector("#successOverlay .btn-primary").onclick = function () {
+                    window.location.href = "workerdash.html";
+                };
             }, 500);
         });
 
