@@ -2,12 +2,10 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>PodiJob | Find Skilled Workers</title>
-
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,538 +14,1368 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Sinhala:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap"
         rel="stylesheet">
 
-        <link rel="icon" type="image/svg+xml" href="logo.svg">
-
     <style>
         :root {
-
             --navy: #070d14;
             --navy2: #101d2c;
-
             --ivory: #f6f2e9;
-            --soft: #cdd3d9;
-
+            --soft: #617080;
             --amber: #e3a13c;
-            --amber-light: #f3c874;
-
+            --amber-light: #d88a22;
             --brick: #bf5535;
+            --border: rgba(16, 29, 44, .12);
 
-            --border: rgba(255, 255, 255, .14);
-
+            --text-dark: #101d2c;
+            --text-soft: #617080;
+            --white: #ffffff;
+            --light-bg: #f7f8fa;
         }
 
-
         * {
-
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-
         }
 
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+        }
 
         body {
-
             min-height: 100vh;
-
             font-family: Inter, "Noto Sans Sinhala", sans-serif;
-
-            color: white;
-
-            background:
-                linear-gradient(120deg,
-                    #070d14,
-                    #101d2c);
-
+            color: var(--text-dark);
+            background: #ffffff;
         }
-
-
 
         body::before {
-
             content: "";
-
             position: fixed;
-
             inset: 0;
-
             background:
-                radial-gradient(circle at 20% 10%,
-                    rgba(227, 161, 60, .18),
-                    transparent 40%),
-
-                radial-gradient(circle at 80% 80%,
-                    rgba(191, 85, 53, .15),
-                    transparent 40%);
-
+                radial-gradient(circle at 15% 10%,
+                    rgba(227, 161, 60, .10),
+                    transparent 38%),
+                radial-gradient(circle at 85% 80%,
+                    rgba(191, 85, 53, .07),
+                    transparent 38%);
             z-index: -1;
-
+            pointer-events: none;
         }
 
+        body.modal-open {
+            overflow: hidden;
+        }
 
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
 
-        /* NAVBAR */
+        button {
+            -webkit-tap-highlight-color: transparent;
+        }
 
+        /* =========================================
+           NAVBAR
+        ========================================= */
 
         .navbar {
-
-            height: 85px;
-
+            width: 100%;
+            min-height: 85px;
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
-
-            padding: 0 clamp(20px, 6vw, 80px);
-
+            padding: 0 clamp(15px, 6vw, 80px);
             border-bottom: 1px solid var(--border);
-
+            background: rgba(255, 255, 255, .94);
             backdrop-filter: blur(15px);
-
+            position: relative;
+            z-index: 100;
         }
-
-
 
         .logo {
-
-            font-family: Poppins;
-
+            font-family: Poppins, sans-serif;
             font-size: 30px;
-
             font-weight: 800;
-
+            white-space: nowrap;
+            flex-shrink: 0;
+            color: var(--text-dark);
         }
-
 
         .logo span {
-
             color: var(--amber-light);
-
         }
-
-
 
         .nav-links {
-
             display: flex;
-
+            align-items: center;
             gap: 30px;
-
+            margin-left: auto;
+            margin-right: 30px;
         }
-
 
         .nav-links a {
-
-            color: var(--soft);
-
+            color: var(--text-soft);
             text-decoration: none;
-
             transition: .3s;
-
+            cursor: pointer;
+            white-space: nowrap;
         }
-
 
         .nav-links a:hover {
-
-            color: var(--amber-light);
-
+            color: var(--amber);
         }
 
-
-
-        .lang {
-
+        .nav-right {
             display: flex;
-
-            gap: 5px;
-
-            background: rgba(255, 255, 255, .06);
-
-            padding: 5px;
-
-            border-radius: 50px;
-
-            border: 1px solid var(--border);
-
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+            flex-shrink: 0;
         }
 
+        /* =========================================
+           NAV BUTTONS
+        ========================================= */
 
-
-        .lang button {
-
-            border: none;
-
-            background: none;
-
-            color: white;
-
-            padding: 8px 18px;
-
-            border-radius: 50px;
-
+        .user-login-btn,
+        .worker-login-btn {
+            height: 42px;
+            padding: 0 20px;
+            border-radius: 30px;
             cursor: pointer;
-
+            font-weight: 700;
+            font-size: 13px;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            line-height: 1;
+            flex-shrink: 0;
+            transition: .3s;
         }
 
-
-
-        .lang button.active {
-
+        .user-login-btn {
+            border: none;
+            color: #111;
             background: linear-gradient(135deg,
                     var(--amber),
                     #d97a56);
-
-            color: #111;
-
         }
 
+        .user-login-btn:hover {
+            filter: brightness(1.08);
+            transform: translateY(-1px);
+        }
 
+        .worker-login-btn {
+            color: var(--amber-light);
+            background: rgba(227, 161, 60, .07);
+            border: 1px solid rgba(227, 161, 60, .25);
+        }
 
+        .worker-login-btn:hover {
+            background: rgba(227, 161, 60, .12);
+            border-color: var(--amber);
+            transform: translateY(-1px);
+        }
 
-        /* HERO */
+        /* =========================================
+           PROFILE
+        ========================================= */
 
+        .nav-profile {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .nav-profile.show {
+            display: flex;
+        }
+
+        .nav-profile-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid var(--amber);
+            overflow: hidden;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f7f8fa;
+            flex-shrink: 0;
+        }
+
+        .nav-profile-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .nav-profile-icon {
+            font-size: 20px;
+            color: var(--text-soft);
+        }
+
+        .nav-profile-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-soft);
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .nav-profile-menu {
+            position: absolute;
+            top: 54px;
+            right: 0;
+            min-width: 170px;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: 0 15px 40px rgba(16, 29, 44, .16);
+            backdrop-filter: blur(20px);
+            padding: 8px;
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            z-index: 9999;
+        }
+
+        .nav-profile-menu.show {
+            display: flex;
+        }
+
+        .nav-profile-menu button {
+            width: 100%;
+            border: none;
+            background: none;
+            color: var(--text-soft);
+            text-align: left;
+            padding: 11px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: inherit;
+            transition: .2s;
+        }
+
+        .nav-profile-menu button:hover {
+            background: #f7f8fa;
+            color: var(--brick);
+        }
+
+        /* =========================================
+           LANGUAGE
+        ========================================= */
+
+        .lang {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            background: #f7f8fa;
+            padding: 4px;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .lang button {
+            border: none;
+            background: none;
+            color: var(--text-dark);
+            height: 34px;
+            padding: 0 13px;
+            border-radius: 50px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            white-space: nowrap;
+            transition: .25s;
+        }
+
+        .lang button.active {
+            background: linear-gradient(135deg,
+                    var(--amber),
+                    #d97a56);
+            color: #111;
+        }
+
+        /* =========================================
+           HERO
+        ========================================= */
 
         .hero {
-
+            width: 100%;
             text-align: center;
-
             padding: 70px 20px 40px;
-
         }
-
 
         .hero h1 {
-
-            font-family: Poppins;
-
+            font-family: Poppins, sans-serif;
             font-size: clamp(35px, 5vw, 55px);
-
             font-weight: 800;
-
+            line-height: 1.2;
+            color: var(--text-dark);
         }
 
-
-        .hero h1 span {
-
-            color: var(--amber-light);
-
+        .hero h1 span:first-child {
+            color: var(--amber);
         }
-
-
 
         .hero p {
-
-            margin-top: 20px;
-
+            max-width: 700px;
+            margin: 20px auto 0;
             font-size: 18px;
-
-            color: var(--soft);
-
+            color: var(--text-soft);
             line-height: 1.8;
-
         }
 
+        /* =========================================
+   SKILL / JOB CATEGORY SELECT
+   ========================================= */
 
+        .auth-field select {
+            width: 100%;
+            height: 52px;
 
-
-        /* SEARCH */
-
-
-        .search-panel {
-
-            max-width: 950px;
-
-            margin: 45px auto;
-
-            padding: 25px;
-
-            display: grid;
-
-            grid-template-columns: 2fr 1fr 1fr auto;
-
-            gap: 15px;
-
-            background: rgba(255, 255, 255, .06);
-
-            border: 1px solid var(--border);
-
-            border-radius: 25px;
-
-            backdrop-filter: blur(20px);
-
-        }
-
-
-
-        .search-panel input,
-        .search-panel select {
-
-            height: 55px;
-
-            padding: 0 18px;
+            padding: 0 48px 0 16px;
 
             border-radius: 12px;
 
             border: 1px solid var(--border);
 
-            background: rgba(255, 255, 255, .08);
+            background-color: #ffffff;
 
-            color: white;
+            color: var(--navy);
 
             outline: none;
 
-        }
+            font-size: 14.5px;
 
-
-
-        .search-panel option {
-
-            background: #101d2c;
-
-        }
-
-
-
-        .search-btn {
-
-            height: 55px;
-
-            padding: 0 30px;
-
-            border: none;
-
-            border-radius: 12px;
+            font-family: inherit;
 
             cursor: pointer;
 
-            font-weight: 700;
+            transition:
+                border-color .25s ease,
+                box-shadow .25s ease,
+                background-color .25s ease;
 
-            background: linear-gradient(135deg,
-                    var(--amber),
-                    #d97a56);
+            appearance: none;
+            -webkit-appearance: none;
 
+            /* Keep existing amber arrow */
+            background-image:
+                linear-gradient(45deg,
+                    transparent 50%,
+                    var(--amber-light) 50%),
+                linear-gradient(135deg,
+                    var(--amber-light) 50%,
+                    transparent 50%);
+
+            background-position:
+                calc(100% - 21px) 22px,
+                calc(100% - 15px) 22px;
+
+            background-size:
+                6px 6px,
+                6px 6px;
+
+            background-repeat: no-repeat;
         }
 
+        /* Hover */
+        .auth-field select:hover {
+            border-color: rgba(227, 161, 60, .55);
 
-
-
-        /* RESULTS */
-
-
-        .results-section {
-
-            padding: 40px clamp(20px, 7vw, 90px);
-
+            background-color: #ffffff;
         }
 
+        /* Focus */
+        .auth-field select:focus {
+            border-color: var(--amber);
 
+            background-color: #ffffff;
 
-        .result-header {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            margin-bottom: 30px;
-
+            box-shadow:
+                0 0 0 3px rgba(227, 161, 60, .12);
         }
 
-
-        .result-header h2 {
-
-            font-family: Poppins;
-
-        }
-
-
-
-        .result-count {
-
-            color: var(--amber-light);
-
-        }
-
-
-
-
-        .jobs-grid {
-
-            display: grid;
-
-            grid-template-columns: repeat(3, 1fr);
-
-            gap: 25px;
-
-        }
-
-
-
-
-        .job-card {
-
-            padding: 25px;
-
-            background: rgba(255, 255, 255, .06);
-
-            border: 1px solid var(--border);
-
-            border-radius: 22px;
-
-            backdrop-filter: blur(15px);
-
-        }
-
-
-
-        /* IMAGE RIGHT SIDE */
-
-
-        .job-top {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            gap: 15px;
-
-        }
-
-
-
-        .job-info {
-
-            flex: 1;
-
-        }
-
-
-
-        .job-card h3 {
-
-            font-size: 22px;
-
-        }
-
-
-
-        .worker-image {
-
-            width: 150px;
-
-            height: 150px;
-
-            border-radius: 50%;
-
-            object-fit: cover;
-
-            border: 3px solid var(--amber);
-
-        }
-
-
-
-        .job-meta {
-
-            margin-top: 15px;
-
-            line-height: 1.8;
-
+        /* Placeholder */
+        .auth-field select:invalid {
             color: var(--soft);
-
         }
 
+        /* Options */
+        .auth-field select option {
+            background: #ffffff;
 
+            color: var(--navy);
 
-        .price {
-
-            margin-top: 15px;
-
-            font-size: 20px;
-
-            font-weight: 700;
-
-            color: var(--amber-light);
-
+            font-family: inherit;
         }
 
-
-
-        .profile-btn {
-
-            display: inline-block;
-
-            margin-top: 20px;
-
-            padding: 10px 22px;
-
-            border-radius: 30px;
-
-            background: linear-gradient(135deg,
-                    var(--amber),
-                    #d97a56);
+        /* Selected option */
+        .auth-field select option:checked {
+            background: var(--amber);
 
             color: #111;
+        }
 
+        /* =========================================
+           SEARCH
+        ========================================= */
+
+        .search-panel {
+            width: min(950px, calc(100% - 20px));
+            margin: 45px auto;
+            padding: 25px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr auto;
+            gap: 12px;
+            background: #f7f8fa;
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            box-shadow: 0 12px 35px rgba(16, 29, 44, .06);
+            backdrop-filter: blur(20px);
+        }
+
+        .search-panel input,
+        .search-panel select {
+            width: 100%;
+            min-width: 0;
+            height: 55px;
+            padding: 0 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: #ffffff;
+            color: var(--text-dark);
+            outline: none;
+            font-size: 14px;
+        }
+
+        .search-panel input::placeholder {
+            color: #8a95a1;
+        }
+
+        .search-panel input:focus,
+        .search-panel select:focus {
+            border-color: var(--amber);
+            box-shadow: 0 0 0 3px rgba(227, 161, 60, .10);
+        }
+
+        .search-panel option {
+            background: #ffffff;
+            color: var(--text-dark);
+        }
+
+        .search-btn {
+            height: 55px;
+            padding: 0 25px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
             font-weight: 700;
+            background: linear-gradient(135deg,
+                    var(--amber),
+                    #d97a56);
+            color: #111;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            white-space: nowrap;
+            transition: .3s;
+        }
 
+        .search-btn:hover {
+            filter: brightness(1.08);
+        }
+
+        /* =========================================
+           RESULTS
+        ========================================= */
+
+        .results-section {
+            width: 100%;
+            padding: 40px clamp(15px, 7vw, 90px);
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .result-header h2 {
+            font-family: Poppins, sans-serif;
+            font-size: 25px;
+            color: var(--text-dark);
+        }
+
+        .result-count {
+            color: var(--brick);
+            font-size: 14px;
+        }
+
+        .jobs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 25px;
+        }
+
+        .job-card {
+            min-width: 0;
+            padding: 25px;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            box-shadow: 0 10px 30px rgba(16, 29, 44, .06);
+            backdrop-filter: blur(15px);
+            overflow: hidden;
+            transition: .3s;
+        }
+
+        .job-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(227, 161, 60, .45);
+            box-shadow: 0 15px 35px rgba(16, 29, 44, .10);
+        }
+
+        .job-top {
+            min-width: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .job-info {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .job-card h3 {
+            font-size: 21px;
+            color: var(--text-dark);
+            overflow-wrap: anywhere;
+        }
+
+        .worker-image {
+            width: 115px;
+            height: 115px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--amber);
+            flex-shrink: 0;
+        }
+
+        .job-meta {
+            margin-top: 15px;
+            line-height: 1.8;
+            color: var(--text-soft);
+            font-size: 14px;
+        }
+
+        .price {
+            margin-top: 15px;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--brick);
+        }
+
+        .profile-btn {
+            width: 100%;
+            height: 44px;
+            margin-top: 20px;
+            padding: 0 22px;
+            border-radius: 30px;
+            background: linear-gradient(135deg,
+                    var(--amber),
+                    #d97a56);
+            color: #111;
+            font-weight: 700;
             text-decoration: none;
-
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: .3s;
         }
 
-
-
-
-
-        @media(max-width:1000px) {
-
-            .search-panel {
-
-                grid-template-columns: 1fr;
-
-            }
-
-
-            .jobs-grid {
-
-                grid-template-columns: repeat(2, 1fr);
-
-            }
-
+        .profile-btn:hover {
+            filter: brightness(1.08);
+            transform: translateY(-1px);
         }
 
+        /* =========================================
+           AUTH OVERLAY
+        ========================================= */
 
+        .auth-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(16, 29, 44, .38);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 99999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .3s ease, visibility .3s ease;
+        }
 
-        @media(max-width:650px) {
+        .auth-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
 
+        .auth-modal {
+            width: min(460px, calc(100vw - 30px));
+            max-height: 88vh;
+            overflow-y: auto;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 26px;
+            box-shadow: 0 25px 70px rgba(16, 29, 44, .22);
+            backdrop-filter: blur(25px);
+            padding: 35px 32px 32px;
+            position: relative;
+            transform: scale(.9) translateY(15px);
+            opacity: 0;
+            transition:
+                transform .35s cubic-bezier(.2, .8, .2, 1),
+                opacity .3s ease;
+        }
+
+        .auth-overlay.show .auth-modal {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        .auth-close {
+            position: absolute;
+            top: 18px;
+            right: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: #f7f8fa;
+            color: var(--text-soft);
+            font-size: 20px;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: .25s;
+        }
+
+        .auth-close:hover {
+            background: linear-gradient(135deg,
+                    var(--amber),
+                    #d97a56);
+            color: #111;
+            border-color: transparent;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 26px;
+        }
+
+        .auth-header h2 {
+            font-family: Poppins, sans-serif;
+            font-size: 26px;
+            font-weight: 800;
+            line-height: 1.35;
+            color: var(--text-dark);
+        }
+
+        .auth-header h2 span {
+            color: var(--amber);
+        }
+
+        .auth-header p {
+            margin-top: 10px;
+            color: var(--text-soft);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* =========================================
+           AUTH TABS
+        ========================================= */
+
+        .auth-tabs {
+            width: 100%;
+            display: flex;
+            gap: 8px;
+            background: #f7f8fa;
+            border: 1px solid var(--border);
+            padding: 6px;
+            border-radius: 50px;
+            margin-bottom: 26px;
+        }
+
+        .auth-tab-btn {
+            flex: 1;
+            min-width: 0;
+            height: 43px;
+            border: none;
+            background: none;
+            color: var(--text-soft);
+            padding: 0 10px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: .3s;
+        }
+
+        .auth-tab-btn.active {
+            background: linear-gradient(135deg,
+                    var(--amber),
+                    #d97a56);
+            color: #111;
+        }
+
+        /* =========================================
+           AUTH FORM
+        ========================================= */
+
+        .auth-form {
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+            animation: authFadeIn .35s ease;
+        }
+
+        .auth-form.active {
+            display: flex;
+        }
+
+        @keyframes authFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .auth-field {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .auth-field label {
+            font-size: 13.5px;
+            color: #435364;
+            font-weight: 600;
+        }
+
+        .auth-field input {
+            width: 100%;
+            min-width: 0;
+            height: 52px;
+            padding: 0 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: #f8f9fa;
+            color: var(--text-dark);
+            outline: none;
+            font-size: 14.5px;
+            font-family: inherit;
+            transition: .25s;
+        }
+
+        .auth-field input::placeholder {
+            color: #8a95a1;
+        }
+
+        .auth-field input:focus {
+            border-color: var(--amber);
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(227, 161, 60, .10);
+        }
+
+        .auth-row {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            font-size: 13.5px;
+            color: var(--text-soft);
+        }
+
+        .auth-remember {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .auth-remember input {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--amber);
+            flex-shrink: 0;
+        }
+
+        .auth-row a {
+            color: var(--brick);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .auth-row a:hover {
+            text-decoration: underline;
+        }
+
+        .auth-submit {
+            width: 100%;
+            height: 54px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 15px;
+            color: #111;
+            margin-top: 6px;
+            background: linear-gradient(135deg,
+                    var(--amber),
+                    #d97a56);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: .3s;
+        }
+
+        .auth-submit:hover {
+            filter: brightness(1.08);
+            transform: translateY(-1px);
+        }
+
+        /* =========================================
+           PROFILE PHOTO
+        ========================================= */
+
+        .auth-photo-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 6px;
+        }
+
+        .auth-photo-circle {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            border: 3px solid var(--amber);
+            background: #f7f8fa;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .auth-photo-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .auth-photo-icon {
+            font-size: 30px;
+            color: #7b8794;
+        }
+
+        .auth-photo-edit {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg,
+                    var(--amber),
+                    #d97a56);
+            color: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            border: 2px solid #ffffff;
+        }
+
+        .auth-photo-circle input[type="file"] {
+            display: none;
+        }
+
+        .auth-photo-hint {
+            font-size: 12.5px;
+            color: var(--text-soft);
+            text-align: center;
+        }
+
+        /* =========================================
+           GOOGLE LOGIN
+        ========================================= */
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 22px 0;
+            color: #7b8794;
+            font-size: 13px;
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: rgba(16, 29, 44, .12);
+        }
+
+        .auth-divider span {
+            white-space: nowrap;
+        }
+
+        .google-login-btn {
+            width: 100%;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: #ffffff;
+            color: var(--text-dark);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition:
+                background .2s ease,
+                border-color .2s ease,
+                box-shadow .2s ease,
+                transform .2s ease;
+        }
+
+        .google-login-btn:hover {
+            background: #f8f9fa;
+            border-color: rgba(227, 161, 60, .5);
+            box-shadow: 0 5px 18px rgba(16, 29, 44, .10);
+            transform: translateY(-1px);
+        }
+
+        .google-login-btn:active {
+            transform: translateY(0);
+        }
+
+        .google-icon {
+            width: 21px;
+            height: 21px;
+            flex-shrink: 0;
+        }
+
+        /* =========================================
+           TABLET
+        ========================================= */
+
+        @media (max-width: 1100px) {
+
+            .navbar {
+                padding: 0 25px;
+            }
 
             .nav-links {
-
-                display: none;
-
+                gap: 18px;
+                margin-right: 18px;
             }
 
+            .nav-right {
+                gap: 7px;
+            }
+
+            .user-login-btn,
+            .worker-login-btn {
+                padding: 0 14px;
+                font-size: 12px;
+            }
+
+            .search-panel {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .search-btn {
+                width: 100%;
+            }
 
             .jobs-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
 
-                grid-template-columns: 1fr;
+        /* =========================================
+           MOBILE
+        ========================================= */
 
+        @media (max-width: 750px) {
+
+            .navbar {
+                min-height: 72px;
+                padding: 11px 14px;
+                gap: 10px;
             }
 
+            .nav-links {
+                display: none;
+            }
 
+            .nav-right {
+                margin-left: auto;
+                gap: 5px;
+            }
+
+            .user-login-btn,
+            .worker-login-btn {
+                height: 38px;
+                min-height: 38px;
+                padding: 0 11px;
+                font-size: 11px;
+                line-height: 1;
+            }
+
+            .lang {
+                padding: 3px;
+                gap: 2px;
+            }
+
+            .lang button {
+                height: 31px;
+                padding: 0 8px;
+                font-size: 10.5px;
+            }
+
+            .nav-profile-circle {
+                width: 40px;
+                height: 40px;
+            }
+
+            .nav-profile-name {
+                display: none;
+            }
+
+            .nav-profile-menu {
+                top: 48px;
+                right: 0;
+            }
+
+            .hero {
+                padding: 45px 15px 25px;
+            }
+
+            .hero h1 {
+                font-size: clamp(30px, 9vw, 42px);
+                line-height: 1.25;
+            }
+
+            .hero p {
+                font-size: 15px;
+                line-height: 1.7;
+                margin-top: 15px;
+            }
+
+            .search-panel {
+                width: 100%;
+                margin: 30px auto;
+                padding: 15px;
+                grid-template-columns: 1fr;
+                gap: 10px;
+                border-radius: 18px;
+            }
+
+            .search-panel input,
+            .search-panel select,
+            .search-btn {
+                width: 100%;
+                height: 50px;
+                font-size: 14px;
+            }
+
+            .results-section {
+                padding: 25px 15px 40px;
+            }
+
+            .result-header {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: 20px;
+            }
+
+            .result-header h2 {
+                font-size: 22px;
+            }
+
+            .jobs-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .job-card {
+                padding: 18px;
+                border-radius: 18px;
+            }
+
+            .job-top {
+                align-items: flex-start;
+            }
+
+            .job-card h3 {
+                font-size: 19px;
+            }
+
+            .worker-image {
+                width: 85px;
+                height: 85px;
+                border-width: 2px;
+            }
+
+            .job-meta {
+                font-size: 13px;
+                line-height: 1.7;
+                margin-top: 10px;
+            }
+
+            .price {
+                font-size: 17px;
+                margin-top: 13px;
+            }
+
+            .profile-btn {
+                height: 44px;
+                margin-top: 15px;
+            }
+
+            .auth-overlay {
+                padding: 12px;
+            }
+
+            .auth-modal {
+                width: 100%;
+                max-width: 430px;
+                max-height: 92vh;
+                padding: 25px 18px 20px;
+                border-radius: 20px;
+            }
+
+            .auth-close {
+                top: 12px;
+                right: 12px;
+                width: 34px;
+                height: 34px;
+            }
+
+            .auth-header {
+                padding: 0 25px;
+                margin-bottom: 20px;
+            }
+
+            .auth-header h2 {
+                font-size: 21px;
+            }
+
+            .auth-header p {
+                font-size: 13px;
+            }
+
+            .auth-tabs {
+                margin-bottom: 20px;
+                gap: 5px;
+                padding: 5px;
+            }
+
+            .auth-tab-btn {
+                height: 42px;
+                font-size: 13px;
+            }
+
+            .auth-form {
+                gap: 13px;
+            }
+
+            .auth-field {
+                gap: 6px;
+            }
+
+            .auth-field label {
+                font-size: 12.5px;
+            }
+
+            .auth-field input {
+                height: 48px;
+                padding: 0 13px;
+                font-size: 13.5px;
+            }
+
+            .auth-row {
+                font-size: 12px;
+            }
+
+            .auth-submit {
+                height: 50px;
+                font-size: 14px;
+            }
+
+            .auth-photo-circle {
+                width: 85px;
+                height: 85px;
+            }
+
+            .auth-photo-hint {
+                font-size: 11.5px;
+            }
+        }
+
+        /* =========================================
+           SMALL PHONES
+        ========================================= */
+
+        @media (max-width: 430px) {
+
+            .navbar {
+                padding: 9px 10px;
+            }
+
+            .logo {
+                font-size: 22px;
+            }
+
+            .nav-right {
+                gap: 4px;
+            }
+
+            .user-login-btn,
+            .worker-login-btn {
+                padding: 0 8px;
+                font-size: 10px;
+            }
+
+            .lang button {
+                padding: 0 6px;
+                font-size: 9.5px;
+            }
+
+            .hero {
+                padding-top: 35px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .worker-image {
+                width: 72px;
+                height: 72px;
+            }
+
+            .auth-modal {
+                padding: 22px 15px 18px;
+            }
+
+            .auth-header {
+                padding: 0 20px;
+            }
+
+            .auth-row {
+                flex-wrap: wrap;
+            }
+        }
+
+        /* =========================================
+           EXTRA SMALL PHONES
+        ========================================= */
+
+        @media (max-width: 350px) {
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .user-login-btn,
+            .worker-login-btn {
+                padding: 0 6px;
+                font-size: 9px;
+            }
+
+            .lang button {
+                padding: 0 5px;
+                font-size: 9px;
+            }
+
+            .nav-profile-circle {
+                width: 36px;
+                height: 36px;
+            }
+
+            .hero h1 {
+                font-size: 26px;
+            }
         }
     </style>
-
 </head>
-
 
 <body>
 
-
+    <!-- =========================================
+         NAVBAR
+    ========================================= -->
 
     <header class="navbar">
 
@@ -562,13 +1390,68 @@
             <a data-si="අප ගැන" data-en="About">About</a>
         </nav>
 
-        <div class="lang">
-            <button onclick="changeLanguage('si')">සිංහල</button>
-            <button class="active" onclick="changeLanguage('en')">English</button>
+        <div class="nav-right">
+
+            <button class="worker-login-btn" id="workerLoginBtn" onclick="openWorkerAuth()" data-si="සේවක Login"
+                data-en="Worker Login">
+                Worker Login
+            </button>
+
+            <button class="user-login-btn" id="userLoginBtn" onclick="openUserAuth()" data-si="පරිශීලක Login"
+                data-en="User Login">
+                User Login
+            </button>
+
+            <div class="nav-profile" id="navProfile">
+
+                <div class="nav-profile-circle" onclick="toggleNavProfileMenu()">
+
+                    <span class="nav-profile-icon" id="navProfileIcon">
+                        👤
+                    </span>
+
+                    <img id="navProfileImg" alt="Profile">
+
+                </div>
+
+                <span class="nav-profile-name" id="navProfileName">
+                    Account
+                </span>
+
+                <div class="nav-profile-menu" id="navProfileMenu">
+
+                    <button type="button" onclick="goToUserProfile()" data-si="පැතිකඩ" data-en="Profile">
+                        Profile
+                    </button>
+
+                    <button type="button" onclick="logoutNav()" data-si="ඉවත් වන්න" data-en="Logout">
+                        Logout
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="lang">
+
+                <button id="siBtn" onclick="changeLanguage('si')">
+                    සිංහල
+                </button>
+
+                <button id="enBtn" class="active" onclick="changeLanguage('en')">
+                    English
+                </button>
+
+            </div>
+
         </div>
 
     </header>
 
+
+    <!-- =========================================
+         HERO
+    ========================================= -->
 
     <section class="hero">
 
@@ -585,12 +1468,10 @@
             Find skilled workers and jobs near your city
         </p>
 
-
         <div class="search-panel">
 
             <input id="searchInput" data-si="රැකියාව සොයන්න" data-en="Search job / skill"
                 placeholder="Search job / skill">
-
 
             <select id="category">
 
@@ -620,7 +1501,6 @@
 
             </select>
 
-            
             <select id="district">
 
                 <option value="All" data-si="සියලුම දිස්ත්‍රික්ක" data-en="All Districts">
@@ -644,7 +1524,6 @@
                 </option>
 
             </select>
-
 
             <select id="city">
 
@@ -670,8 +1549,7 @@
 
             </select>
 
-
-            <button class="search-btn" id="searchText"  data-si="සොයන්න" data-en="Search">
+            <button class="search-btn" id="searchText" data-si="සොයන්න" data-en="Search">
                 Search
             </button>
 
@@ -679,6 +1557,10 @@
 
     </section>
 
+
+    <!-- =========================================
+         RESULTS
+    ========================================= -->
 
     <section class="results-section">
 
@@ -697,11 +1579,541 @@
     </section>
 
 
+    <!-- =========================================
+         USER AUTH MODAL
+    ========================================= -->
 
+    <div class="auth-overlay" id="userAuthModal" onclick="handleOverlayClick(event)">
+
+        <div class="auth-modal">
+
+            <button class="auth-close" onclick="closeUserAuth()">
+                &times;
+            </button>
+
+            <div class="auth-header">
+
+                <h2>
+                    <span data-si="PodiJOB" data-en="Welcome to">
+                        Welcome to
+                    </span>
+
+                    podi<span style="color:var(--amber-light)">JOB</span>
+                </h2>
+
+                <p data-si="Login වන්න හෝ නව ගිණුමක් සාදන්න" data-en="Login or create your user account">
+                    Login or create your user account
+                </p>
+
+            </div>
+
+            <div class="auth-tabs">
+
+                <button class="auth-tab-btn active" id="loginTabBtn" onclick="switchAuthTab('login')" data-si="Login"
+                    data-en="Login">
+                    Login
+                </button>
+
+                <button class="auth-tab-btn" id="registerTabBtn" onclick="switchAuthTab('register')"
+                    data-si="ලියාපදිංචි වන්න" data-en="Register">
+                    Register
+                </button>
+
+            </div>
+
+            <div class="auth-forms">
+
+                <!-- USER LOGIN -->
+
+                <form class="auth-form active" id="loginForm" onsubmit="handleUserLogin(event)">
+
+                    <div class="auth-field">
+
+                        <label data-si="ඊමේල් / ජංගම අංකය" data-en="Email / Mobile Number">
+                            Email / Mobile Number
+                        </label>
+
+                        <input type="text" id="userLoginIdentifier" data-si="ඊමේල් / ජංගම අංකය ඇතුළත් කරන්න"
+                            data-en="Enter email or mobile number" placeholder="Enter email or mobile number">
+
+                    </div>
+
+                    <div class="auth-field">
+
+                        <label data-si="මුරපදය" data-en="Password">
+                            Password
+                        </label>
+
+                        <input type="password" id="userLoginPassword" data-si="මුරපදය ඇතුළත් කරන්න"
+                            data-en="Enter password" placeholder="Enter password">
+
+                    </div>
+
+                    <div class="auth-row">
+
+                        <label class="auth-remember">
+
+                            <input type="checkbox" id="rememberUser">
+
+                            <span data-si="මතක තබා ගන්න" data-en="Remember Me">
+                                Remember Me
+                            </span>
+
+                        </label>
+
+                        <a href="#" onclick="return false;" data-si="මුරපදය අමතක වුනාද?" data-en="Forgot Password?">
+                            Forgot Password?
+                        </a>
+
+                    </div>
+
+                    <button type="submit" class="auth-submit" data-si="ඇතුල් වන්න" data-en="Login">
+                        Login
+                    </button>
+
+                    <div class="auth-divider">
+
+                        <span data-si="හෝ" data-en="OR">
+                            OR
+                        </span>
+
+                    </div>
+
+                    <button type="button" class="google-login-btn" onclick="googleLogin()">
+
+                        <svg class="google-icon" viewBox="0 0 24 24" aria-hidden="true">
+
+                            <path fill="#4285F4"
+                                d="M21.35 12.27c0-.79-.07-1.55-.23-2.27H12v4.3h5.23a4.47 4.47 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.92-4.18 2.92-7.42z" />
+
+                            <path fill="#34A853"
+                                d="M12 21.99c2.63 0 4.84-.87 6.45-2.35l-3.14-2.45c-.87.58-1.98.93-3.31.93-2.55 0-4.71-1.72-5.49-4.03H3.26v2.53A9.74 9.74 0 0 0 12 21.99z" />
+
+                            <path fill="#FBBC05"
+                                d="M6.51 14.09A5.85 5.85 0 0 1 6.2 12c0-.73.13-1.44.31-2.09V7.38H3.26A9.75 9.75 0 0 0 2.25 12c0 1.57.38 3.05 1.01 4.62l3.25-2.53z" />
+
+                            <path fill="#EA4335"
+                                d="M12 5.88c1.43 0 2.72.49 3.74 1.45l2.8-2.8C16.83 2.92 14.63 2 12 2a9.74 9.74 0 0 0-8.74 5.38l3.25 2.53C7.29 7.6 9.45 5.88 12 5.88z" />
+
+                        </svg>
+
+                        <span data-si="Google සමඟින් ඇතුල් වන්න" data-en="Continue with Google">
+                            Continue with Google
+                        </span>
+
+                    </button>
+
+                </form>
+
+
+                <!-- USER REGISTER -->
+
+                <form class="auth-form" id="registerForm" onsubmit="handleUserRegister(event)">
+
+                    <div class="auth-photo-wrap">
+
+                        <label class="auth-photo-circle" for="userProfilePhoto">
+
+                            <span class="auth-photo-icon" id="userPhotoIcon">
+                                👤
+                            </span>
+
+                            <img id="userPhotoPreview" alt="Profile preview">
+
+                            <span class="auth-photo-edit">
+                                ✎
+                            </span>
+
+                            <input type="file" id="userProfilePhoto" accept="image/*"
+                                onchange="previewAuthPhoto(this,'userPhotoPreview','userPhotoIcon')">
+
+                        </label>
+
+                        <span class="auth-photo-hint" data-si="පැතිකඩ ඡායාරූපයක් එක් කරන්න"
+                            data-en="Add a profile photo">
+                            Add a profile photo
+                        </span>
+
+                    </div>
+
+                    <div class="auth-field">
+
+                        <label data-si="සම්පූර්ණ නම" data-en="Full Name">
+                            Full Name
+                        </label>
+
+                        <input type="text" id="userRegisterName" data-si="සම්පූර්ණ නම ඇතුළත් කරන්න"
+                            data-en="Enter your full name" placeholder="Enter your full name">
+
+                    </div>
+
+                    <div class="auth-field">
+
+                        <label data-si="ජංගම අංකය" data-en="Mobile Number">
+                            Mobile Number
+                        </label>
+
+                        <input type="text" id="userRegisterMobile" data-si="ජංගම අංකය ඇතුළත් කරන්න"
+                            data-en="Enter mobile number" placeholder="Enter mobile number">
+
+                    </div>
+
+                    <div class="auth-field">
+
+                        <label data-si="ඊමේල්" data-en="Email">
+                            Email
+                        </label>
+
+                        <input type="email" id="userRegisterEmail" data-si="ඊමේල් ලිපිනය ඇතුළත් කරන්න"
+                            data-en="Enter email address" placeholder="Enter email address">
+
+                    </div>
+
+                    <div class="auth-field">
+
+                        <label data-si="මුරපදය" data-en="Password">
+                            Password
+                        </label>
+
+                        <input type="password" id="userRegisterPassword" data-si="මුරපදය ඇතුළත් කරන්න"
+                            data-en="Enter password" placeholder="Enter password">
+
+                    </div>
+
+                    <div class="auth-field">
+
+                        <label data-si="මුරපදය තහවුරු කරන්න" data-en="Confirm Password">
+                            Confirm Password
+                        </label>
+
+                        <input type="password" id="userRegisterConfirm" data-si="මුරපදය නැවත ඇතුළත් කරන්න"
+                            data-en="Re-enter password" placeholder="Re-enter password">
+
+                    </div>
+
+                    <button type="submit" class="auth-submit" data-si="ගිණුම සාදන්න" data-en="Create Account">
+                        Create Account
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         WORKER AUTH MODAL
+    ========================================= -->
+
+    <div class="auth-overlay" id="workerAuthModal" onclick="handleWorkerOverlayClick(event)">
+
+        <div class="auth-modal">
+
+            <button class="auth-close" onclick="closeWorkerAuth()">
+                &times;
+            </button>
+
+            <div class="auth-header">
+
+                <h2>
+                    <span data-si="PodiJOB" data-en="Welcome to">
+                        Welcome to
+                    </span>
+
+                    podi<span style="color:var(--amber-light)">JOB</span>
+                </h2>
+
+                <p data-si="සේවකයෙකු ලෙස Login වන්න හෝ නව ගිණුමක් සාදන්න"
+                    data-en="Login or register as a skilled worker">
+                    Login or register as a skilled worker
+                </p>
+
+            </div>
+
+            <div class="auth-tabs">
+
+                <button class="auth-tab-btn active" id="workerLoginTabBtn" onclick="switchWorkerAuthTab('login')"
+                    data-si="Login" data-en="Login">
+                    Login
+                </button>
+
+                <button class="auth-tab-btn" id="workerRegisterTabBtn" onclick="switchWorkerAuthTab('register')"
+                    data-si="ලියාපදිංචි වන්න" data-en="Register">
+                    Register
+                </button>
+
+            </div>
+
+            <div class="auth-forms">
+
+                <!-- WORKER LOGIN -->
+
+                <form class="auth-form active" id="workerLoginForm" onsubmit="handleWorkerLogin(event)">
+
+                    <div class="auth-field">
+
+                        <label data-si="ඊමේල් / ජංගම අංකය" data-en="Email / Mobile Number">
+                            Email / Mobile Number
+                        </label>
+
+                        <input type="text" id="workerLoginIdentifier" data-si="ඊමේල් / ජංගම අංකය ඇතුළත් කරන්න"
+                            data-en="Enter email or mobile number" placeholder="Enter email or mobile number">
+
+                    </div>
+
+                    <div class="auth-field">
+
+                        <label data-si="මුරපදය" data-en="Password">
+                            Password
+                        </label>
+
+                        <input type="password" id="workerLoginPassword" data-si="මුරපදය ඇතුළත් කරන්න"
+                            data-en="Enter password" placeholder="Enter password">
+
+                    </div>
+
+                    <div class="auth-row">
+
+                        <label class="auth-remember">
+
+                            <input type="checkbox" id="rememberWorker">
+
+                            <span data-si="මතක තබා ගන්න" data-en="Remember Me">
+                                Remember Me
+                            </span>
+
+                        </label>
+
+                        <a href="#" onclick="return false;" data-si="මුරපදය අමතක වුනාද?" data-en="Forgot Password?">
+                            Forgot Password?
+                        </a>
+
+                    </div>
+
+                    <button type="submit" class="auth-submit" data-si="ඇතුල් වන්න" data-en="Login">
+                        Login
+                    </button>
+
+                    <div class="auth-divider">
+
+                        <span data-si="හෝ" data-en="OR">
+                            OR
+                        </span>
+
+                    </div>
+
+                    <button type="button" class="google-login-btn" onclick="googleLogin()">
+
+                        <svg class="google-icon" viewBox="0 0 24 24" aria-hidden="true">
+
+                            <path fill="#4285F4"
+                                d="M21.35 12.27c0-.79-.07-1.55-.23-2.27H12v4.3h5.23a4.47 4.47 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.92-4.18 2.92-7.42z" />
+
+                            <path fill="#34A853"
+                                d="M12 21.99c2.63 0 4.84-.87 6.45-2.35l-3.14-2.45c-.87.58-1.98.93-3.31.93-2.55 0-4.71-1.72-5.49-4.03H3.26v2.53A9.74 9.74 0 0 0 12 21.99z" />
+
+                            <path fill="#FBBC05"
+                                d="M6.51 14.09A5.85 5.85 0 0 1 6.2 12c0-.73.13-1.44.31-2.09V7.38H3.26A9.75 9.75 0 0 0 2.25 12c0 1.57.38 3.05 1.01 4.62l3.25-2.53z" />
+
+                            <path fill="#EA4335"
+                                d="M12 5.88c1.43 0 2.72.49 3.74 1.45l2.8-2.8C16.83 2.92 14.63 2 12 2a9.74 9.74 0 0 0-8.74 5.38l3.25 2.53C7.29 7.6 9.45 5.88 12 5.88z" />
+
+                        </svg>
+
+                        <span data-si="Google සමඟින් ඇතුල් වන්න" data-en="Continue with Google">
+                            Continue with Google
+                        </span>
+
+                    </button>
+
+                </form>
+
+
+                <!-- WORKER REGISTER -->
+
+                <form class="auth-form" id="workerRegisterForm" onsubmit="handleWorkerRegister(event)">
+
+
+
+                    <div class="auth-field">
+
+                        <label data-si="සම්පූර්ණ නම" data-en="Full Name">
+                            Full Name
+                        </label>
+
+                        <input type="text" id="workerRegisterName" data-si="සම්පූර්ණ නම ඇතුළත් කරන්න"
+                            data-en="Enter your full name" placeholder="Enter your full name">
+
+                    </div>
+
+                    <div class="auth-field">
+
+                        <label data-si="ක්ෂේත්‍රය / රැකියාව" data-en="Skill / Job Category">
+                            Skill / Job Category
+                        </label>
+
+                        <select id="workerCategory" name="workerCategory" required>
+
+                            <option value="" disabled selected data-si="රැකියා ක්ෂේත්‍රය තෝරන්න"
+                                data-en="Select a job category">
+
+                                Select a job category
+
+                            </option>
+
+
+                            <option value="Electrical" data-si="විදුලි කාර්මික" data-en="Electrician">
+
+                                Electrician
+
+                            </option>
+
+
+                            <option value="Construction" data-si="පෙදරේරු" data-en="Mason">
+
+                                Mason
+
+                            </option>
+
+
+                            <option value="Plumbing" data-si="ජලනල කාර්මික" data-en="Plumber">
+
+                                Plumber
+
+                            </option>
+
+
+                            <option value="Carpenter" data-si="වඩු කාර්මික" data-en="Carpenter">
+
+                                Carpenter
+
+                            </option>
+
+
+                            <option value="Painter" data-si="පින්තාරු කාර්මික" data-en="Painter">
+
+                                Painter
+
+                            </option>
+
+
+                            <option value="Welder" data-si="වෙල්ඩින් කාර්මික" data-en="Welder">
+
+                                Welder
+
+                            </option>
+
+
+                            <option value="Driving" data-si="රියදුරු" data-en="Driver">
+
+                                Driver
+
+                            </option>
+
+
+                            <option value="Gardening" data-si="ගෙවතු වගා කාර්මික" data-en="Gardener">
+
+                                Gardener
+
+                            </option>
+
+
+                            <option value="Cleaning" data-si="පිරිසිදු කිරීමේ සේවක" data-en="Cleaner">
+
+                                Cleaner
+
+                            </option>
+
+
+                            <option value="Tailoring" data-si="ඇඳුම් මැහුම් ශිල්පී" data-en="Tailor">
+
+                                Tailor
+
+                            </option>
+
+
+                            <option value="Technician" data-si="තාක්ෂණික ශිල්පී" data-en="Technician">
+
+                                Technician
+
+                            </option>
+
+
+                            <option value="Other" data-si="වෙනත්" data-en="Other">
+
+                                Other
+
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="auth-field">
+
+                        <label data-si="ජංගම අංකය" data-en="Mobile Number">
+                            Mobile Number
+                        </label>
+
+                        <input type="text" id="workerRegisterMobile" data-si="ජංගම අංකය ඇතුළත් කරන්න"
+                            data-en="Enter mobile number" placeholder="Enter mobile number">
+
+                    </div>
+
+                    <div class="auth-field">
+
+                        <label data-si="ඊමේල්" data-en="Email">
+                            Email
+                        </label>
+
+                        <input type="email" id="workerRegisterEmail" data-si="ඊමේල් ලිපිනය ඇතුළත් කරන්න"
+                            data-en="Enter email address" placeholder="Enter email address">
+
+                    </div>
+
+                    <div class="auth-field">
+
+                        <label data-si="මුරපදය" data-en="Password">
+                            Password
+                        </label>
+
+                        <input type="password" id="workerRegisterPassword" data-si="මුරපදය ඇතුළත් කරන්න"
+                            data-en="Enter password" placeholder="Enter password">
+
+                    </div>
+
+                    <div class="auth-field">
+
+                        <label data-si="මුරපදය තහවුරු කරන්න" data-en="Confirm Password">
+                            Confirm Password
+                        </label>
+
+                        <input type="password" id="workerRegisterConfirm" data-si="මුරපදය නැවත ඇතුළත් කරන්න"
+                            data-en="Re-enter password" placeholder="Re-enter password">
+
+                    </div>
+
+                    <button type="submit" class="auth-submit" data-si="ගිණුම සාදන්න" data-en="Create Account">
+                        Create Account
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
 
 
     <script>
 
+        /* =========================================
+           JOB DATA
+        ========================================= */
 
         const jobs = [
 
@@ -717,7 +2129,6 @@
                 rating: "4.8"
             },
 
-
             {
                 title: "Mason",
                 sinhala: "පෙදරේරු",
@@ -729,7 +2140,6 @@
                 image: "https://randomuser.me/api/portraits/men/32.jpg",
                 rating: "4.7"
             },
-
 
             {
                 title: "Plumber",
@@ -743,7 +2153,6 @@
                 rating: "4.9"
             },
 
-
             {
                 title: "Driver",
                 sinhala: "රියදුරු",
@@ -755,7 +2164,6 @@
                 image: "https://randomuser.me/api/portraits/men/65.jpg",
                 rating: "4.6"
             },
-
 
             {
                 title: "Painter",
@@ -769,336 +2177,1276 @@
                 rating: "4.8"
             }
 
-
         ];
-
-
 
 
         let language = "en";
 
-
-
         const grid = document.querySelector(".jobs-grid");
-
         const count = document.querySelector(".result-count");
-
         const searchInput = document.querySelector("#searchInput");
-
         const category = document.querySelector("#category");
-
         const city = document.querySelector("#city");
 
 
-
-
-
-
+        /* =========================================
+           LOAD JOBS
+        ========================================= */
 
         function loadJobs(data) {
 
-
             grid.innerHTML = "";
 
-
-            count.innerHTML =
+            count.textContent =
                 `${data.length} ${language === "si"
                     ? "ප්‍රතිඵල හමු විය"
                     : "Results Found"
                 }`;
 
+            if (data.length === 0) {
 
+                grid.innerHTML = `
+                    <div style="
+                        grid-column:1/-1;
+                        text-align:center;
+                        padding:50px 20px;
+                        color:#617080;
+                    ">
+                        ${language === "si"
+                        ? "රැකියා හමු නොවීය."
+                        : "No jobs found."
+                    }
+                    </div>
+                `;
 
-
+                return;
+            }
 
             data.forEach(job => {
 
-
                 grid.innerHTML += `
 
+                    <div class="job-card">
 
-<div class="job-card">
+                        <div class="job-top">
 
+                            <div class="job-info">
 
-<div class="job-top">
-
-
-<div class="job-info">
-
-
-<h3>
-
-${language === "si"
+                                <h3>
+                                    ${language === "si"
                         ? job.sinhala
                         : job.title
                     }
+                                </h3>
 
-</h3>
+                                <div class="job-meta">
 
-
-
-<div class="job-meta">
-
-
-📍
-
-${language === "si"
+                                    📍
+                                    ${language === "si"
                         ? job.location
                         : job.city
                     }
 
+                                    <br>
 
-<br>
-
-
-🛠
-
-${language === "si"
+                                    🛠
+                                    ${language === "si"
                         ? job.categorySi
                         : job.category
                     }
 
+                                    <br>
 
-<br>
+                                    ⭐ ${job.rating}
 
+                                </div>
 
-⭐ ${job.rating}
+                            </div>
 
+                            <img
+                                src="${job.image}"
+                                class="worker-image"
+                                alt="${job.title}">
 
-</div>
+                        </div>
 
+                        <div class="price">
+                            ${job.price}
+                        </div>
 
-</div>
+                        <a
+                            href="#"
+                            class="profile-btn"
+                            onclick="return false;">
 
-
-
-
-<img 
-src="${job.image}"
-class="worker-image">
-
-
-
-</div>
-
-
-
-
-<div class="price">
-
-${job.price}
-
-</div>
-
-
-
-
-<a href="#" class="profile-btn">
-
-${language === "si"
+                            ${language === "si"
                         ? "Profile බලන්න"
                         : "View Profile"
                     }
 
-</a>
+                        </a>
 
-
-
-</div>
-
-
-
-`;
-
+                    </div>
+                `;
 
             });
 
-
         }
 
 
-
-
-
-
-
-
+        /* =========================================
+           SEARCH
+        ========================================= */
 
         function searchJobs() {
 
+            const text =
+                searchInput.value
+                    .trim()
+                    .toLowerCase();
 
-            let text =
-                searchInput.value.toLowerCase();
-
-
-
-            let selectedCategory =
+            const selectedCategory =
                 category.value;
 
-
-
-            let selectedCity =
+            const selectedCity =
                 city.value;
 
-
-
-
-            let result =
+            const result =
                 jobs.filter(job => {
 
+                    const textMatch =
+                        !text ||
+                        job.title.toLowerCase().includes(text) ||
+                        job.sinhala.includes(text) ||
+                        job.category.toLowerCase().includes(text) ||
+                        job.categorySi.includes(text);
 
-                    let textMatch =
-
-                        job.title.toLowerCase()
-                            .includes(text)
-
-                        ||
-
-                        job.sinhala.includes(text);
-
-
-
-
-                    let categoryMatch =
-
-                        selectedCategory.includes("All")
-                        ||
-                        selectedCategory.includes("සියලු")
-                        ||
+                    const categoryMatch =
+                        selectedCategory === "All" ||
                         job.category === selectedCategory;
 
-
-
-
-                    let cityMatch =
-
-                        selectedCity.includes("All")
-                        ||
-                        selectedCity.includes("සියලු")
-                        ||
+                    const cityMatch =
+                        selectedCity === "All" ||
                         job.city === selectedCity;
 
-
-
-                    return textMatch &&
+                    return (
+                        textMatch &&
                         categoryMatch &&
-                        cityMatch;
-
+                        cityMatch
+                    );
 
                 });
 
-
-
             loadJobs(result);
-
 
         }
 
 
-
-
-
-
-
-
-        document.querySelector(".search-btn")
-            .addEventListener(
-                "click",
-                searchJobs
-            );
-
-
-
+        document
+            .querySelector(".search-btn")
+            .addEventListener("click", searchJobs);
 
         searchInput.addEventListener(
             "keyup",
             function (e) {
 
                 if (e.key === "Enter") {
-
                     searchJobs();
-
                 }
 
-            });
+            }
+        );
+
+        category.addEventListener("change", searchJobs);
+        city.addEventListener("change", searchJobs);
 
 
-
-
-
-
-
-
+        /* =========================================
+           LANGUAGE
+        ========================================= */
 
         function changeLanguage(lang) {
 
-
             language = lang;
 
-
-
-            document.querySelectorAll("[data-si]")
+            document
+                .querySelectorAll("[data-si]")
                 .forEach(el => {
 
-
                     if (el.tagName === "INPUT") {
-
 
                         el.placeholder =
                             lang === "si"
                                 ? el.dataset.si
                                 : el.dataset.en;
 
+                    } else {
 
-                    }
-
-                    else {
-
-
-                        el.innerHTML =
+                        el.textContent =
                             lang === "si"
                                 ? el.dataset.si
                                 : el.dataset.en;
 
-
                     }
 
-
                 });
 
-
-
-
-
-            document.querySelectorAll(".lang button")
+            document
+                .querySelectorAll(".lang button")
                 .forEach(btn => {
-
                     btn.classList.remove("active");
-
                 });
 
+            if (lang === "si") {
 
+                document
+                    .getElementById("siBtn")
+                    .classList.add("active");
 
-            event.target.classList.add("active");
+            } else {
 
+                document
+                    .getElementById("enBtn")
+                    .classList.add("active");
 
+            }
 
             loadJobs(jobs);
-
 
         }
 
 
+        /* =========================================
+           USER AUTH
+        ========================================= */
+
+        const DEMO_USER = {
+
+            name: "Demo User",
+            email: "lakshanekanayake6@gmail.com",
+            mobile: "0712345678",
+            password: "123456",
+            photo: "https://randomuser.me/api/portraits/men/45.jpg"
+
+        };
 
 
+        function getSavedUser() {
 
+            try {
+
+                return JSON.parse(
+                    localStorage.getItem("podijobUser")
+                ) || null;
+
+            } catch (error) {
+
+                return null;
+
+            }
+
+        }
+
+
+        function saveUser(user) {
+
+            localStorage.setItem(
+                "podijobUser",
+                JSON.stringify(user)
+            );
+
+        }
+
+
+        function getLoggedInUser() {
+
+            try {
+
+                return JSON.parse(
+                    localStorage.getItem(
+                        "podijobLoggedInUser"
+                    )
+                ) || null;
+
+            } catch (error) {
+
+                return null;
+
+            }
+
+        }
+
+
+        function setLoggedInUser(user) {
+
+            localStorage.setItem(
+                "podijobLoggedInUser",
+                JSON.stringify(user)
+            );
+
+        }
+
+
+        function updateHeaderUser(user) {
+
+            const loginBtn =
+                document.getElementById("userLoginBtn");
+
+            const profile =
+                document.getElementById("navProfile");
+
+            const profileImg =
+                document.getElementById("navProfileImg");
+
+            const profileIcon =
+                document.getElementById("navProfileIcon");
+
+            const profileName =
+                document.getElementById("navProfileName");
+
+            if (!loginBtn || !profile) return;
+
+            if (user) {
+
+                loginBtn.style.display = "none";
+
+                profile.classList.add("show");
+
+                profileName.textContent =
+                    user.name || "Account";
+
+                if (user.photo) {
+
+                    profileImg.src = user.photo;
+
+                    profileImg.style.display = "block";
+
+                    profileIcon.style.display = "none";
+
+                } else {
+
+                    profileImg.removeAttribute("src");
+
+                    profileImg.style.display = "none";
+
+                    profileIcon.style.display = "inline";
+
+                }
+
+            } else {
+
+                loginBtn.style.display = "inline-flex";
+
+                profile.classList.remove("show");
+
+                profileImg.removeAttribute("src");
+
+                profileImg.style.display = "none";
+
+                profileIcon.style.display = "inline";
+
+                profileName.textContent = "Account";
+
+                document
+                    .getElementById("navProfileMenu")
+                    ?.classList.remove("show");
+
+            }
+
+        }
+
+
+        /* =========================================
+           USER LOGIN
+        ========================================= */
+
+        function handleUserLogin(event) {
+
+            event.preventDefault();
+
+            const identifier =
+                document
+                    .getElementById("userLoginIdentifier")
+                    .value
+                    .trim();
+
+            const password =
+                document
+                    .getElementById("userLoginPassword")
+                    .value;
+
+            if (!identifier || !password) {
+
+                alert(
+                    language === "si"
+                        ? "Email/Mobile සහ Password ඇතුළත් කරන්න."
+                        : "Please enter your email/mobile and password."
+                );
+
+                return;
+
+            }
+
+            const savedUser = getSavedUser();
+
+            let user = null;
+
+            if (
+                savedUser &&
+                (
+                    identifier === savedUser.email ||
+                    identifier === savedUser.mobile
+                ) &&
+                password === savedUser.password
+            ) {
+
+                user = savedUser;
+
+            } else if (
+
+                (
+                    identifier === DEMO_USER.email ||
+                    identifier === DEMO_USER.mobile
+                ) &&
+                password === DEMO_USER.password
+
+            ) {
+
+                user = DEMO_USER;
+
+            }
+
+            if (!user) {
+
+                alert(
+                    language === "si"
+                        ? "Login විස්තර වැරදියි."
+                        : "Invalid email/mobile or password."
+                );
+
+                return;
+
+            }
+
+            setLoggedInUser(user);
+
+            updateHeaderUser(user);
+
+            closeUserAuth();
+
+            document
+                .getElementById("loginForm")
+                .reset();
+
+            alert(
+                language === "si"
+                    ? `ආයුබෝවන් ${user.name}! Login සාර්ථකයි.`
+                    : `Welcome ${user.name}! Login successful.`
+            );
+
+        }
+
+
+        /* =========================================
+           USER REGISTER
+        ========================================= */
+
+        function handleUserRegister(event) {
+
+            event.preventDefault();
+
+            const name =
+                document
+                    .getElementById("userRegisterName")
+                    .value
+                    .trim();
+
+            const mobile =
+                document
+                    .getElementById("userRegisterMobile")
+                    .value
+                    .trim();
+
+            const email =
+                document
+                    .getElementById("userRegisterEmail")
+                    .value
+                    .trim();
+
+            const password =
+                document
+                    .getElementById("userRegisterPassword")
+                    .value;
+
+            const confirmPassword =
+                document
+                    .getElementById("userRegisterConfirm")
+                    .value;
+
+            const previewImage =
+                document.getElementById(
+                    "userPhotoPreview"
+                );
+
+            const photo =
+                previewImage.style.display === "block"
+                    ? previewImage.src
+                    : "";
+
+            if (
+                !name ||
+                !mobile ||
+                !email ||
+                !password ||
+                !confirmPassword
+            ) {
+
+                alert(
+                    language === "si"
+                        ? "සියලුම fields පුරවන්න."
+                        : "Please fill all fields."
+                );
+
+                return;
+
+            }
+
+            if (password.length < 6) {
+
+                alert(
+                    language === "si"
+                        ? "Password එක අවම වශයෙන් characters 6ක් විය යුතුයි."
+                        : "Password must be at least 6 characters."
+                );
+
+                return;
+
+            }
+
+            if (password !== confirmPassword) {
+
+                alert(
+                    language === "si"
+                        ? "Passwords දෙක එක සමාන නැහැ."
+                        : "Passwords do not match."
+                );
+
+                return;
+
+            }
+
+            const user = {
+                name,
+                mobile,
+                email,
+                password,
+                photo
+            };
+
+            saveUser(user);
+
+            setLoggedInUser(user);
+
+            updateHeaderUser(user);
+
+            closeUserAuth();
+
+            document
+                .getElementById("registerForm")
+                .reset();
+
+            resetPhotoPreview(
+                "userPhotoPreview",
+                "userPhotoIcon"
+            );
+
+            alert(
+                language === "si"
+                    ? "ගිණුම සාර්ථකව සාදා Login විය!"
+                    : "Account created and logged in successfully!"
+            );
+
+        }
+
+
+        /* =========================================
+           USER PROFILE MENU
+        ========================================= */
+
+        function toggleNavProfileMenu() {
+
+            const menu =
+                document.getElementById(
+                    "navProfileMenu"
+                );
+
+            if (menu) {
+                menu.classList.toggle("show");
+            }
+
+        }
+
+
+        function goToUserProfile() {
+
+            const user =
+                getLoggedInUser();
+
+            if (!user) return;
+
+            document
+                .getElementById("navProfileMenu")
+                ?.classList.remove("show");
+
+            alert(
+                language === "si"
+                    ? `${user.name}ගේ Profile එක මෙතන open කරන්න පුළුවන්.`
+                    : `Open ${user.name}'s profile here.`
+            );
+
+        }
+
+
+        function logoutNav() {
+
+            localStorage.removeItem(
+                "podijobLoggedInUser"
+            );
+
+            updateHeaderUser(null);
+
+            alert(
+                language === "si"
+                    ? "ඔබ Logout විය."
+                    : "You have been logged out."
+            );
+
+        }
+
+
+        function initUserSession() {
+
+            const user =
+                getLoggedInUser();
+
+            updateHeaderUser(user);
+
+        }
+
+
+        /* =========================================
+           WORKER AUTH
+        ========================================= */
+
+        function getSavedWorker() {
+
+            try {
+
+                return JSON.parse(
+                    localStorage.getItem(
+                        "podijobWorker"
+                    )
+                ) || null;
+
+            } catch (error) {
+
+                return null;
+
+            }
+
+        }
+
+
+        function saveWorker(worker) {
+
+            localStorage.setItem(
+                "podijobWorker",
+                JSON.stringify(worker)
+            );
+
+        }
+
+
+        function getLoggedInWorker() {
+
+            try {
+
+                return JSON.parse(
+                    localStorage.getItem(
+                        "podijobLoggedInWorker"
+                    )
+                ) || null;
+
+            } catch (error) {
+
+                return null;
+
+            }
+
+        }
+
+
+        function setLoggedInWorker(worker) {
+
+            localStorage.setItem(
+                "podijobLoggedInWorker",
+                JSON.stringify(worker)
+            );
+
+        }
+
+
+        /* =========================================
+           WORKER LOGIN
+        ========================================= */
+
+        function handleWorkerLogin(event) {
+
+            event.preventDefault();
+
+            const identifier =
+                document
+                    .getElementById(
+                        "workerLoginIdentifier"
+                    )
+                    .value
+                    .trim();
+
+            const password =
+                document
+                    .getElementById(
+                        "workerLoginPassword"
+                    )
+                    .value;
+
+            if (!identifier || !password) {
+
+                alert(
+                    language === "si"
+                        ? "Email/Mobile සහ Password ඇතුළත් කරන්න."
+                        : "Please enter your email/mobile and password."
+                );
+
+                return;
+
+            }
+
+            const worker =
+                getSavedWorker();
+
+            if (
+                !worker ||
+                (
+                    identifier !== worker.email &&
+                    identifier !== worker.mobile
+                ) ||
+                password !== worker.password
+            ) {
+
+                alert(
+                    language === "si"
+                        ? "Worker Login විස්තර වැරදියි."
+                        : "Invalid worker login details."
+                );
+
+                return;
+
+            }
+
+            setLoggedInWorker(worker);
+
+            closeWorkerAuth();
+
+            document
+                .getElementById(
+                    "workerLoginForm"
+                )
+                .reset();
+
+            alert(
+                language === "si"
+                    ? `ආයුබෝවන් ${worker.name}! Worker Login සාර්ථකයි.`
+                    : `Welcome ${worker.name}! Worker Login successful.`
+            );
+
+        }
+
+
+        /* =========================================
+           WORKER REGISTER
+        ========================================= */
+
+        function handleWorkerRegister(event) {
+
+            event.preventDefault();
+
+            const name =
+                document
+                    .getElementById(
+                        "workerRegisterName"
+                    )
+                    .value
+                    .trim();
+
+            const skill =
+                document
+                    .getElementById(
+                        "workerRegisterSkill"
+                    )
+                    .value
+                    .trim();
+
+            const mobile =
+                document
+                    .getElementById(
+                        "workerRegisterMobile"
+                    )
+                    .value
+                    .trim();
+
+            const email =
+                document
+                    .getElementById(
+                        "workerRegisterEmail"
+                    )
+                    .value
+                    .trim();
+
+            const password =
+                document
+                    .getElementById(
+                        "workerRegisterPassword"
+                    )
+                    .value;
+
+            const confirmPassword =
+                document
+                    .getElementById(
+                        "workerRegisterConfirm"
+                    )
+                    .value;
+
+            const preview =
+                document.getElementById(
+                    "workerPhotoPreview"
+                );
+
+            const photo =
+                preview.style.display === "block"
+                    ? preview.src
+                    : "";
+
+            if (
+                !name ||
+                !skill ||
+                !mobile ||
+                !email ||
+                !password ||
+                !confirmPassword
+            ) {
+
+                alert(
+                    language === "si"
+                        ? "සියලුම fields පුරවන්න."
+                        : "Please fill all fields."
+                );
+
+                return;
+
+            }
+
+            if (password.length < 6) {
+
+                alert(
+                    language === "si"
+                        ? "Password එක අවම වශයෙන් characters 6ක් විය යුතුයි."
+                        : "Password must be at least 6 characters."
+                );
+
+                return;
+
+            }
+
+            if (password !== confirmPassword) {
+
+                alert(
+                    language === "si"
+                        ? "Passwords දෙක එක සමාන නැහැ."
+                        : "Passwords do not match."
+                );
+
+                return;
+
+            }
+
+            const worker = {
+                name,
+                skill,
+                mobile,
+                email,
+                password,
+                photo
+            };
+
+            saveWorker(worker);
+
+            setLoggedInWorker(worker);
+
+            closeWorkerAuth();
+
+            document
+                .getElementById(
+                    "workerRegisterForm"
+                )
+                .reset();
+
+            resetPhotoPreview(
+                "workerPhotoPreview",
+                "workerPhotoIcon"
+            );
+
+            alert(
+                language === "si"
+                    ? "Worker ගිණුම සාර්ථකව සාදා Login විය!"
+                    : "Worker account created and logged in successfully!"
+            );
+
+        }
+
+
+        /* =========================================
+           PROFILE PHOTO
+        ========================================= */
+
+        function previewAuthPhoto(
+            input,
+            previewId,
+            iconId
+        ) {
+
+            const file =
+                input.files &&
+                input.files[0];
+
+            if (!file) return;
+
+            if (!file.type.startsWith("image/")) {
+
+                alert(
+                    language === "si"
+                        ? "Image file එකක් තෝරන්න."
+                        : "Please select an image file."
+                );
+
+                input.value = "";
+
+                return;
+
+            }
+
+            const preview =
+                document.getElementById(
+                    previewId
+                );
+
+            const icon =
+                document.getElementById(
+                    iconId
+                );
+
+            const reader =
+                new FileReader();
+
+            reader.onload = function (e) {
+
+                preview.src =
+                    e.target.result;
+
+                preview.style.display =
+                    "block";
+
+                icon.style.display =
+                    "none";
+
+            };
+
+            reader.readAsDataURL(file);
+
+        }
+
+
+        function resetPhotoPreview(
+            previewId,
+            iconId
+        ) {
+
+            const preview =
+                document.getElementById(
+                    previewId
+                );
+
+            const icon =
+                document.getElementById(
+                    iconId
+                );
+
+            if (preview) {
+
+                preview.removeAttribute("src");
+
+                preview.style.display =
+                    "none";
+
+            }
+
+            if (icon) {
+
+                icon.style.display =
+                    "inline";
+
+            }
+
+        }
+
+
+        /* =========================================
+           USER AUTH MODAL
+        ========================================= */
+
+        function openUserAuth() {
+
+            document
+                .getElementById("userAuthModal")
+                .classList.add("show");
+
+            document.body
+                .classList.add("modal-open");
+
+        }
+
+
+        function closeUserAuth() {
+
+            document
+                .getElementById("userAuthModal")
+                .classList.remove("show");
+
+            document.body
+                .classList.remove("modal-open");
+
+        }
+
+
+        function handleOverlayClick(e) {
+
+            if (
+                e.target.id ===
+                "userAuthModal"
+            ) {
+
+                closeUserAuth();
+
+            }
+
+        }
+
+
+        function switchAuthTab(tab) {
+
+            const loginTabBtn =
+                document.getElementById(
+                    "loginTabBtn"
+                );
+
+            const registerTabBtn =
+                document.getElementById(
+                    "registerTabBtn"
+                );
+
+            const loginForm =
+                document.getElementById(
+                    "loginForm"
+                );
+
+            const registerForm =
+                document.getElementById(
+                    "registerForm"
+                );
+
+            if (tab === "login") {
+
+                loginTabBtn.classList.add("active");
+
+                registerTabBtn.classList.remove("active");
+
+                loginForm.classList.add("active");
+
+                registerForm.classList.remove("active");
+
+            } else {
+
+                registerTabBtn.classList.add("active");
+
+                loginTabBtn.classList.remove("active");
+
+                registerForm.classList.add("active");
+
+                loginForm.classList.remove("active");
+
+            }
+
+        }
+
+
+        /* =========================================
+           WORKER AUTH MODAL
+        ========================================= */
+
+        function openWorkerAuth() {
+
+            document
+                .getElementById("workerAuthModal")
+                .classList.add("show");
+
+            document.body
+                .classList.add("modal-open");
+
+        }
+
+
+        function closeWorkerAuth() {
+
+            document
+                .getElementById("workerAuthModal")
+                .classList.remove("show");
+
+            document.body
+                .classList.remove("modal-open");
+
+        }
+
+
+        function handleWorkerOverlayClick(e) {
+
+            if (
+                e.target.id ===
+                "workerAuthModal"
+            ) {
+
+                closeWorkerAuth();
+
+            }
+
+        }
+
+
+        function switchWorkerAuthTab(tab) {
+
+            const loginTabBtn =
+                document.getElementById(
+                    "workerLoginTabBtn"
+                );
+
+            const registerTabBtn =
+                document.getElementById(
+                    "workerRegisterTabBtn"
+                );
+
+            const loginForm =
+                document.getElementById(
+                    "workerLoginForm"
+                );
+
+            const registerForm =
+                document.getElementById(
+                    "workerRegisterForm"
+                );
+
+            if (tab === "login") {
+
+                loginTabBtn.classList.add("active");
+
+                registerTabBtn.classList.remove("active");
+
+                loginForm.classList.add("active");
+
+                registerForm.classList.remove("active");
+
+            } else {
+
+                registerTabBtn.classList.add("active");
+
+                loginTabBtn.classList.remove("active");
+
+                registerForm.classList.add("active");
+
+                loginForm.classList.remove("active");
+
+            }
+
+        }
+
+
+        /* =========================================
+           CLOSE MODALS
+        ========================================= */
+
+        document.addEventListener(
+            "keydown",
+            function (e) {
+
+                if (e.key === "Escape") {
+
+                    closeUserAuth();
+                    closeWorkerAuth();
+
+                }
+
+            }
+        );
+
+
+        /* =========================================
+           PROFILE MENU OUTSIDE CLICK
+        ========================================= */
+
+        document.addEventListener(
+            "click",
+            function (event) {
+
+                const profile =
+                    document.getElementById(
+                        "navProfile"
+                    );
+
+                const menu =
+                    document.getElementById(
+                        "navProfileMenu"
+                    );
+
+                if (
+                    profile &&
+                    menu &&
+                    !profile.contains(event.target)
+                ) {
+
+                    menu.classList.remove("show");
+
+                }
+
+            }
+        );
+
+
+        /* =========================================
+           INITIALIZE
+        ========================================= */
 
         loadJobs(jobs);
 
-
+        initUserSession();
 
     </script>
-
 
 </body>
 
