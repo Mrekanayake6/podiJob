@@ -350,97 +350,93 @@
    SKILL / JOB CATEGORY SELECT
    ========================================= */
 
-.auth-field select {
-    width: 100%;
-    height: 52px;
+        .auth-field select {
+            width: 100%;
+            height: 52px;
 
-    padding: 0 48px 0 16px;
+            padding: 0 48px 0 16px;
 
-    border-radius: 12px;
+            border-radius: 12px;
 
-    border: 1px solid var(--border);
+            border: 1px solid var(--border);
 
-    background-color: #ffffff;
+            background-color: #ffffff;
 
-    color: var(--navy);
+            color: var(--navy);
 
-    outline: none;
+            outline: none;
 
-    font-size: 14.5px;
+            font-size: 14.5px;
 
-    font-family: inherit;
+            font-family: inherit;
 
-    cursor: pointer;
+            cursor: pointer;
 
-    transition:
-        border-color .25s ease,
-        box-shadow .25s ease,
-        background-color .25s ease;
+            transition:
+                border-color .25s ease,
+                box-shadow .25s ease,
+                background-color .25s ease;
 
-    appearance: none;
-    -webkit-appearance: none;
+            appearance: none;
+            -webkit-appearance: none;
 
-    /* Keep existing amber arrow */
-    background-image:
-        linear-gradient(
-            45deg,
-            transparent 50%,
-            var(--amber-light) 50%
-        ),
-        linear-gradient(
-            135deg,
-            var(--amber-light) 50%,
-            transparent 50%
-        );
+            /* Keep existing amber arrow */
+            background-image:
+                linear-gradient(45deg,
+                    transparent 50%,
+                    var(--amber-light) 50%),
+                linear-gradient(135deg,
+                    var(--amber-light) 50%,
+                    transparent 50%);
 
-    background-position:
-        calc(100% - 21px) 22px,
-        calc(100% - 15px) 22px;
+            background-position:
+                calc(100% - 21px) 22px,
+                calc(100% - 15px) 22px;
 
-    background-size:
-        6px 6px,
-        6px 6px;
+            background-size:
+                6px 6px,
+                6px 6px;
 
-    background-repeat: no-repeat;
-}
+            background-repeat: no-repeat;
+        }
 
-/* Hover */
-.auth-field select:hover {
-    border-color: rgba(227, 161, 60, .55);
+        /* Hover */
+        .auth-field select:hover {
+            border-color: rgba(227, 161, 60, .55);
 
-    background-color: #ffffff;
-}
+            background-color: #ffffff;
+        }
 
-/* Focus */
-.auth-field select:focus {
-    border-color: var(--amber);
+        /* Focus */
+        .auth-field select:focus {
+            border-color: var(--amber);
 
-    background-color: #ffffff;
+            background-color: #ffffff;
 
-    box-shadow:
-        0 0 0 3px rgba(227, 161, 60, .12);
-}
+            box-shadow:
+                0 0 0 3px rgba(227, 161, 60, .12);
+        }
 
-/* Placeholder */
-.auth-field select:invalid {
-    color: var(--soft);
-}
+        /* Placeholder */
+        .auth-field select:invalid {
+            color: var(--soft);
+        }
 
-/* Options */
-.auth-field select option {
-    background: #ffffff;
+        /* Options */
+        .auth-field select option {
+            background: #ffffff;
 
-    color: var(--navy);
+            color: var(--navy);
 
-    font-family: inherit;
-}
+            font-family: inherit;
+        }
 
-/* Selected option */
-.auth-field select option:checked {
-    background: var(--amber);
+        /* Selected option */
+        .auth-field select option:checked {
+            background: var(--amber);
 
-    color: #111;
-}
+            color: #111;
+        }
 
         /* =========================================
            SEARCH
@@ -839,11 +835,27 @@
         ========================================= */
 
         @keyframes authShake {
-            0%, 100% { transform: translateX(0); }
-            20% { transform: translateX(-6px); }
-            40% { transform: translateX(6px); }
-            60% { transform: translateX(-4px); }
-            80% { transform: translateX(4px); }
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            20% {
+                transform: translateX(-6px);
+            }
+
+            40% {
+                transform: translateX(6px);
+            }
+
+            60% {
+                transform: translateX(-4px);
+            }
+
+            80% {
+                transform: translateX(4px);
+            }
         }
 
         .auth-field input.input-error,
@@ -1730,8 +1742,7 @@
                                 data-en="Enter password" placeholder="Enter password">
 
                             <button type="button" class="auth-password-toggle"
-                                onclick="togglePasswordVisibility(this,'userLoginPassword')"
-                                aria-label="Show password">
+                                onclick="togglePasswordVisibility(this,'userLoginPassword')" aria-label="Show password">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
@@ -2044,7 +2055,7 @@
 
                 <form class="auth-form" id="workerRegisterForm" onsubmit="handleWorkerRegister(event)">
 
-                   
+
 
                     <div class="auth-field">
 
@@ -3426,7 +3437,7 @@
                     ? "Worker ගිණුම සාර්ථකව සාදා Login විය!"
                     : "Worker account created and logged in successfully!"
             );
-
+            window.location.href = "workerProfileUpdate.html";
         }
 
 
